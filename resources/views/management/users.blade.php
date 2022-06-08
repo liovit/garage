@@ -1,15 +1,15 @@
 @extends('home')
 
-<title>Garage | Users List</title>
+<title>{{ __('Garage | Users List') }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        Users
+        {{ __('Users') }}
     @endsection
 
     @section('description')
-        List
+        {{ __('List') }}
     @endsection
 
     @section('back-button')
@@ -22,12 +22,12 @@
                     <path d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) "/>
                 </g>
             </svg></span>
-            Back</a>
+            {{ __('Back') }}</a>
         </div>
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">Create</a>
+        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
     @endsection
 
 @endsection
@@ -36,14 +36,83 @@
 
     <div style="margin-top: 20px;"></div>
 
-    <div class="row pl-13 col-12 content-row">
-        @if(Session::has('success'))
-            <div class="alert alert-info text-center">{{ Session::get('success') }}</div>
-        @endif
-        @if(Session::has('error'))
-            <div class="alert alert-danger text-center">{{ Session::get('error') }}</div>
-        @endif
+    @if (Session::has('success'))
+    <!--begin::Alert-->
+    <div class="alert alert-dismissible bg-light-success d-flex flex-column flex-sm-row p-5 mb-10">
+        <!--begin::Icon-->
+        <span class="svg-icon svg-icon-2hx svg-icon-success me-4 mb-5 mb-sm-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+            </svg>
+        </span>
+        <!--end::Icon-->
+
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-column pe-0 pe-sm-10">
+            <!--begin::Title-->
+            <h4 class="fw-bold">{{ __('Success') }}</h4>
+            <!--end::Title-->
+            <!--begin::Content-->
+            <span>{{ Session::get('success') }}</span>
+            <!--end::Content-->
+        </div>
+        <!--end::Wrapper-->
+
+        <!--begin::Close-->
+        <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+            <span class="svg-icon svg-icon-1 svg-icon-success">
+                <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                </svg></span>
+                <!--end::Svg Icon-->
+            </span>
+        </button>
+        <!--end::Close-->
     </div>
+    <!--end::Alert-->
+    @endif
+
+    @if (Session::has('error'))
+    <!--begin::Alert-->
+    <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5 mb-10">
+        <!--begin::Icon-->
+        <span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+            </svg>
+        </span>
+        <!--end::Icon-->
+
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-column pe-0 pe-sm-10">
+            <!--begin::Title-->
+            <h4 class="fw-bold">{{ __('Something is wrong') }}</h4>
+            <!--end::Title-->
+            <!--begin::Content-->
+            <span>{{ Session::get('error') }}</span>
+            <!--end::Content-->
+        </div>
+        <!--end::Wrapper-->
+
+        <!--begin::Close-->
+        <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+            <span class="svg-icon svg-icon-1 svg-icon-danger">
+                <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                </svg></span>
+                <!--end::Svg Icon-->
+            </span>
+        </button>
+        <!--end::Close-->
+    </div>
+    <!--end::Alert-->
+    @endif
 
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -237,7 +306,7 @@
                                 <!--end::Role=-->
                                 <!--begin::Last login=-->
                                 <td>
-                                    <div class="badge badge-light fw-bolder">Yesterday</div>
+                                    <div class="badge badge-light fw-bolder">{{ $user->last_login }}</div>
                                 </td>
                                 <!--end::Last login=-->
                                 <!--begin::Joined-->

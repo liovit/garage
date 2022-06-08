@@ -1,6 +1,6 @@
 @extends('home')
 
-<title>{{ __('Garage | Users List') }}</title>
+<title>{{ __('Garage | Create New User') }}</title>
 
 @section('toolbar-content')
 
@@ -83,7 +83,7 @@
     <!--end::Alert-->
     @endif
 
-    @if(Session::has('error'))
+    @if($errors->any())
     <!--begin::Alert-->
     <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5 mb-10">
         <!--begin::Icon-->
@@ -101,7 +101,7 @@
             <h4 class="fw-bold">{{ __('Something is wrong') }}</h4>
             <!--end::Title-->
             <!--begin::Content-->
-            <span>{{ Session::get('error') }}</span>
+            {!! implode('', $errors->all('<span>• :message</span>')) !!}
             <!--end::Content-->
         </div>
         <!--end::Wrapper-->
@@ -142,7 +142,10 @@
                 <!--end::Card header-->
                 <!--begin::Card body-->
                 <div class="card-body py-4">
-                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/users/confirm-creation') }}" method="post">
+
+                    {{-- @php echo getcwd(); @endphp --}}
+
+                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/users/confirm-creation') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
@@ -174,27 +177,31 @@
                             <!--end::Hint-->
                         </div>
 
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">{{ __('First Name') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" name="first_name" value="{{ old('first_name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="John"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
+                        <div class="form-group row">
 
-                         <!--begin::Input group-->
-                         <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">{{ __('Last Name') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Smith" />
-                            <!--end::Input-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 col-md-6 col-xs-12">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('First Name') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="John"/>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 col-md-6 col-xs-12">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">{{ __('Last Name') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Smith" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
                         </div>
-                        <!--end::Input group-->
 
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
@@ -207,13 +214,39 @@
                         </div>
                         <!--end::Input group-->
 
+                        <div class="form-group row">
+
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 col-md-6 col-xs-12">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">{{ __('Password') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="*********" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7 col-md-6 col-xs-12">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">{{ __('Date Of Birth') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" class="form-control form-control-solid mb-3 mb-lg-0" data-bs-toggle="tooltip" title="Enter date of birth here" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                        </div>
+
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">{{ __('Date Of Birth') }}</label>
+                            <label class="required fw-bold fs-6 mb-2">{{ __('Phone Number') }}</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" class="form-control form-control-solid mb-3 mb-lg-0" data-bs-toggle="tooltip" title="Enter date of birth here" />
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -235,7 +268,7 @@
                                 <!--begin::Radio-->
                                 <div class="form-check form-check-custom form-check-solid">
                                     <!--begin::Input-->
-                                    <input class="form-check-input me-3" name="user_role" type="radio" value="{{ $r->id }}" id="kt_modal_update_role_option_{{ $rid }}" required/>
+                                    <input class="form-check-input me-3" name="role" type="radio" value="{{ $r->id }}" id="kt_modal_update_role_option_{{ $rid }}" required/>
                                     <!--end::Input-->
                                     <!--begin::Label-->
                                     <label class="form-check-label" for="kt_modal_update_role_option_{{ $rid }}">
@@ -256,7 +289,7 @@
                         </div>
                         <!--end::Input group-->
                         <!--begin::Actions-->
-                        <div class="text-center">
+                        <div class="" style="float:right;">
                             <a href="{{ url('/management/users/create') }}" class="btn btn-light me-3">{{ __('Discard') }}</a>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">{{ __('Submit') }}</span>

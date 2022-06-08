@@ -45,7 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/management/users/{user}', [App\Http\Controllers\UserController::class, 'show']);
     Route::get('/management/users/edit/{user}', [App\Http\Controllers\UserController::class, 'edit']);
     Route::put('/management/users/edit/confirm/{user}', [App\Http\Controllers\UserController::class, 'update']);
-    Route::get('/management/users/pre-delete/{user}', [App\Http\Controllers\UserController::class, 'show_destroy']);
+    Route::put('/management/users/{user}/update/notifications', [App\Http\Controllers\UserController::class, 'updateNotifications']);
+    Route::get('/management/users/pre-delete/{user}', [App\Http\Controllers\UserController::class, 'showDestroy']);
     Route::delete('/management/users/delete/user/{user}', [App\Http\Controllers\UserController::class, 'destroy']);
     //
 

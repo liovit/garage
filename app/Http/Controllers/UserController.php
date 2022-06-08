@@ -9,9 +9,14 @@ use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
+
+    // public $filesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/vehicles/';
+    public $filesPath = '/Users/noname/Desktop/noname/Projects/Laravel/Laravel#Projects/2021/1#GarageServices/public/media/profiles/';
+
     /**
      * Display a listing of the resource.
      *
@@ -58,29 +63,45 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         
         $user = Auth::user();
 
         if($user->hasAnyPermission(['users.management.create', 'everything'])) {
 
-            $uDob = $request->d;
-            $dob = new \DateTime($uDob);
-            $now = new \DateTime();
-            $diff = $now->diff($dob);
-            $age = $diff->y;
+            // $uDob = $request->d;
+            // $dob = new \DateTime($uDob);
+            // $now = new \DateTime();
+            // $diff = $now->diff($dob);
+            // $age = $diff->y;
 
             $createUser = User::create([
-                'name' => $request->f,
-                'last_name' => $request->l,
-                'date_of_birth' => $request->d,
-                'email' => $request->e,
-                'password' => Hash::make($request->p),
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'date_of_birth' => $request->date_of_birth,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
+
+            if($request->file('avatar')) {
+
+                $pTitle = time() . '-' . $request->file('avatar')->getClientOriginalName();
+
+                if(!file_exists($this->filesPath . $createUser->id)) {
+                    mkdir($this->filesPath . $createUser->id, 0777);
+                }
+
+                $request->file('avatar')->move($this->filesPath . $createUser->id , $pTitle);
+
+                $createUser->update([
+                    'avatar' => '/media/profiles/' . $createUser->id . '/' . $pTitle,
+                ]);
+
+            }
 
             $createUser->assignRole($request->role);
 
@@ -169,12 +190,52 @@ class UserController extends Controller
     }
 
     /**
+     * Update the specified resource (user notification settings) in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateNotifications(Request $request, $id) 
+    {
+
+        $user = User::find($id);
+        $array = [];
+
+        // events notifications
+        if($request->email_notification_1) {
+            array_push($array, $request->email_notification_1);
+        }
+
+        // warranty notifications
+        if($request->email_notification_2) {
+            array_push($array, $request->email_notification_2);
+        }
+
+        // parts notifications
+        if($request->email_notification_3) {
+            array_push($array, $request->email_notification_3);
+        }
+
+        // tasks notifications
+        if($request->email_notification_4) {
+            array_push($array, $request->email_notification_4);
+        }
+
+        $user->notifications = json_encode($array);
+        $user->save();
+
+        return redirect('/management/users/'.$user->id)->with('success', 'Successfully updated user notification settings!');
+
+    }
+
+    /**
      * Show pre - removing page.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_destroy($id)
+    public function showDestroy($id)
     {
 
         $authUser = Auth::user();
@@ -206,6 +267,6 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this function.');
         }
-        
+
     }
 }
