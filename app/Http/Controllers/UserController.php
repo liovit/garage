@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\User;
+
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
 
     // public $filesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/vehicles/';
     public $filesPath = '/Users/noname/Desktop/noname/Projects/Laravel/Laravel#Projects/2021/1#GarageServices/public/media/profiles/';
+    public $removeFilesPath = '/Users/noname/Desktop/noname/Projects/Laravel/Laravel#Projects/2021/1#GarageServices/public';
 
     /**
      * Display a listing of the resource.
@@ -67,6 +70,7 @@ class UserController extends Controller
     {
         
         $user = Auth::user();
+        $array = [];
 
         if($user->hasAnyPermission(['users.management.create', 'everything'])) {
 
@@ -83,6 +87,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'phone' => $request->phone,
+                'notifications' => json_encode($array),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
@@ -163,25 +168,60 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
 
         $user = User::find($id);
 
-        if($request->p) {
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$user->id,
+        ]);
+
+        $array = $this->validateNotifications($request);
+
+        if($request->password) {
             $user->update([
-                'password' => Hash::make($request->p),
+                'password' => Hash::make($request->password),
             ]);
         }
 
         $user->update([
-            'name' => $request->f,
-            'last_name' => $request->l,
-            'date_of_birth' => $request->d,
-            'email' => $request->e,
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'date_of_birth' => $request->date_of_birth,
+            'email' => $request->email,
+            'city' => $request->city,
+            'address' => $request->address,
+            'post' => $request->post,
+            'notifications' => json_encode($array),
             // 'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+
+        if($request->file('avatar')) {
+
+            // remove current picture
+            if($user->avatar) {
+                unlink($this->removeFilesPath . $user->avatar);
+            }
+
+            // reform slightly original title
+            $pTitle = time() . '-' . $request->file('avatar')->getClientOriginalName();
+
+            // check if such profile folder exists, if not create new
+            if(!file_exists($this->filesPath . $user->id)) {
+                mkdir($this->filesPath . $user->id, 0777);
+            }
+
+            // place the picture in to the user folder
+            $request->file('avatar')->move($this->filesPath . $user->id , $pTitle);
+
+            // update database
+            $user->update([
+                'avatar' => '/media/profiles/' . $user->id . '/' . $pTitle,
+            ]);
+
+        }
 
         $user->syncRoles($request->role);
 
@@ -200,27 +240,8 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
-        $array = [];
 
-        // events notifications
-        if($request->email_notification_1) {
-            array_push($array, $request->email_notification_1);
-        }
-
-        // warranty notifications
-        if($request->email_notification_2) {
-            array_push($array, $request->email_notification_2);
-        }
-
-        // parts notifications
-        if($request->email_notification_3) {
-            array_push($array, $request->email_notification_3);
-        }
-
-        // tasks notifications
-        if($request->email_notification_4) {
-            array_push($array, $request->email_notification_4);
-        }
+        $array = $this->validateNotifications($request);
 
         $user->notifications = json_encode($array);
         $user->save();
@@ -261,12 +282,57 @@ class UserController extends Controller
         $authUser = Auth::user();
 
         if($authUser->hasAnyPermission(['users.management.delete', 'everything'])) {
+
             $user = User::find($id);
+
+            if($user->avatar) {
+                unlink($this->removeFilesPath . $user->avatar);
+            }
+
             $user->delete();
+
             return redirect('/management/users')->with('success', 'Successfully deleted user!');
+            
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this function.');
         }
 
     }
+
+    /**
+     * Adjust array accordingly.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array $array
+     * @return array $array
+     */
+    public function validateNotifications($request)
+    {
+
+        $array = [];
+
+        // events notifications
+        if($request->email_notification_1) {
+            array_push($array, $request->email_notification_1);
+        }
+
+        // warranty notifications
+        if($request->email_notification_2) {
+            array_push($array, $request->email_notification_2);
+        }
+
+        // parts notifications
+        if($request->email_notification_3) {
+            array_push($array, $request->email_notification_3);
+        }
+
+        // tasks notifications
+        if($request->email_notification_4) {
+            array_push($array, $request->email_notification_4);
+        }
+
+        return $array;
+
+    }
+
 }

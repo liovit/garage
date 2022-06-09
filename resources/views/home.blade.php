@@ -237,6 +237,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{{ url('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ url('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+		<link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
