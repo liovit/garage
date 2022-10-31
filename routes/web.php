@@ -51,27 +51,38 @@ Route::group(['middleware' => 'auth'], function () {
     //
 
     // supplier managing routes
-    Route::get('/management/suppliers', [App\Http\Controllers\ManagementController::class, 'suppliers']);
-    Route::get('/management/suppliers/create', [App\Http\Controllers\ManagementController::class, 'suppliers_create']);
-    Route::post('/management/suppliers/confirm-creation', [App\Http\Controllers\ManagementController::class, 'supplier_confirm_creation']);
-    Route::get('/management/suppliers/{supplier}', [App\Http\Controllers\ManagementController::class, 'show_supplier']);
-    Route::get('/management/suppliers/edit/{supplier}', [App\Http\Controllers\ManagementController::class, 'edit_supplier']);
-    Route::put('/management/suppliers/edit/confirm/{supplier}', [App\Http\Controllers\ManagementController::class, 'confirm_supplier_update']);
-    Route::get('/management/suppliers/pre-delete/{supplier}', [App\Http\Controllers\ManagementController::class, 'pre_delete_supplier']);
-    Route::delete('/management/suppliers/delete/supplier/{supplier}', [App\Http\Controllers\ManagementController::class, 'delete_supplier']);
-    Route::post('/management/suppliers/delete/altcontact', [App\Http\Controllers\ManagementController::class, 'delete_alt_contact']);
-    Route::post('/management/suppliers/update/altcontact', [App\Http\Controllers\ManagementController::class, 'update_alt_contact']);
+    Route::get('/management/suppliers', [App\Http\Controllers\SuppliersController::class, 'index']);
+    Route::get('/management/suppliers/create', [App\Http\Controllers\SuppliersController::class, 'create']);
+    Route::post('/management/suppliers/confirm-creation', [App\Http\Controllers\SuppliersController::class, 'store']);
+    Route::get('/management/suppliers/{supplier}', [App\Http\Controllers\SuppliersController::class, 'show']);
+    Route::get('/management/suppliers/edit/{supplier}', [App\Http\Controllers\SuppliersController::class, 'edit']);
+    Route::put('/management/suppliers/edit/confirm/{supplier}', [App\Http\Controllers\SuppliersController::class, 'update']);
+    Route::get('/management/suppliers/pre-delete/{supplier}', [App\Http\Controllers\SuppliersController::class, 'showDestroy']);
+    Route::delete('/management/suppliers/delete/supplier/{supplier}', [App\Http\Controllers\SuppliersController::class, 'destroy']);
+    Route::post('/management/suppliers/delete/altcontact', [App\Http\Controllers\SuppliersController::class, 'deleteAltContact']);
+    Route::post('/management/suppliers/update/altcontact', [App\Http\Controllers\SuppliersController::class, 'updateAltContact']);
+    //
+
+    // customer routes
+    Route::get('/management/customers', [App\Http\Controllers\CustomersController::class, 'index']);
+    Route::get('/management/customers/create', [App\Http\Controllers\CustomersController::class, 'create']);
+    Route::post('/management/customers/post', [App\Http\Controllers\CustomersController::class, 'post']);
+    Route::get('/management/customers/edit/{id}', [App\Http\Controllers\CustomersController::class, 'edit']);
+    Route::post('/management/customers/update/{id}', [App\Http\Controllers\CustomersController::class, 'update']);
+    Route::get('/management/customers/{id}', [App\Http\Controllers\CustomersController::class, 'show']);
+    Route::get('/management/customers/pre-delete/{id}', [App\Http\Controllers\CustomersController::class, 'showDestroy']);
+    Route::delete('/management/customers/delete/{id}', [App\Http\Controllers\CustomersController::class, 'destroy']); 
     //
 
     // roles managing routes
-    Route::get('/management/roles', [App\Http\Controllers\ManagementController::class, 'roles']);
-    Route::get('/management/roles/create', [App\Http\Controllers\ManagementController::class, 'roles_create']);
-    Route::post('/management/roles/confirm-creation', [App\Http\Controllers\ManagementController::class, 'role_confirm_creation']);
-    Route::get('/management/roles/{role}', [App\Http\Controllers\ManagementController::class, 'show_role']);
-    Route::get('/management/roles/edit/{role}', [App\Http\Controllers\ManagementController::class, 'edit_role']);
-    Route::put('/management/roles/edit/confirm/{role}', [App\Http\Controllers\ManagementController::class, 'confirm_role_update']);
-    Route::get('/management/roles/pre-delete/{role}', [App\Http\Controllers\ManagementController::class, 'pre_delete_role']);
-    Route::delete('/management/roles/delete/role/{role}', [App\Http\Controllers\ManagementController::class, 'delete_role']);
+    Route::get('/management/roles', [App\Http\Controllers\RolesController::class, 'index']);
+    Route::get('/management/roles/create', [App\Http\Controllers\RolesController::class, 'create']);
+    Route::post('/management/roles/confirm-creation', [App\Http\Controllers\RolesController::class, 'store']);
+    Route::get('/management/roles/{role}', [App\Http\Controllers\RolesController::class, 'show']);
+    Route::get('/management/roles/edit/{role}', [App\Http\Controllers\RolesController::class, 'edit']);
+    Route::put('/management/roles/edit/confirm/{role}', [App\Http\Controllers\RolesController::class, 'update']);
+    Route::get('/management/roles/pre-delete/{role}', [App\Http\Controllers\RolesController::class, 'showDestroy']);
+    Route::delete('/management/roles/delete/role/{role}', [App\Http\Controllers\RolesController::class, 'destroy']);
     //
 
     // billing managing routes
@@ -80,9 +91,9 @@ Route::group(['middleware' => 'auth'], function () {
     //
 
     // permission managing routes
-    Route::get('/management/permissions', [App\Http\Controllers\ManagementController::class, 'permissions']);
-    Route::get('/management/permissions/create', [App\Http\Controllers\ManagementController::class, 'permissions_create']);
-    Route::post('/management/permissions/confirm-creation', [App\Http\Controllers\ManagementController::class, 'permission_confirm_creation']);
+    Route::get('/management/permissions', [App\Http\Controllers\PermissionsController::class, 'index']);
+    Route::get('/management/permissions/create', [App\Http\Controllers\PermissionsController::class, 'create']);
+    Route::post('/management/permissions/confirm-creation', [App\Http\Controllers\PermissionsController::class, 'store']);
     //
 
     // mail managing routes
@@ -152,16 +163,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/work/vehicles/pre-delete/{id}', [App\Http\Controllers\VehiclesController::class, 'pre_delete']);
     Route::post('/work/vehicles/delete/{id}', [App\Http\Controllers\VehiclesController::class, 'destroy']);
     Route::post('/work/vehicles/get-history', [App\Http\Controllers\VehiclesController::class, 'get_history']);
-
-    // customer routes
-    Route::get('/customers', [App\Http\Controllers\CustomersController::class, 'index']);
-    Route::get('/customers/create', [App\Http\Controllers\CustomersController::class, 'create']);
-    Route::post('/customers/post', [App\Http\Controllers\CustomersController::class, 'post']);
-    Route::get('/customers/edit/{id}', [App\Http\Controllers\CustomersController::class, 'edit']);
-    Route::post('/customers/update/{id}', [App\Http\Controllers\CustomersController::class, 'update']);
-    Route::get('/customers/{id}', [App\Http\Controllers\CustomersController::class, 'show']);
-    Route::get('/customers/pre-delete/{id}', [App\Http\Controllers\CustomersController::class, 'pre_delete']);
-    Route::delete('/customers/delete/{id}', [App\Http\Controllers\CustomersController::class, 'destroy']);
 
     // equipment managing routes
     Route::get('/work/equipment', [App\Http\Controllers\EquipmentController::class, 'index']);

@@ -136,7 +136,7 @@ class CustomersController extends Controller
 
     }
 
-    public function pre_delete($id) {
+    public function showDestroy($id) {
 
         $user = Auth::user();
 

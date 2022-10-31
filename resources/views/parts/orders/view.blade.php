@@ -1,15 +1,15 @@
 @extends('home')
 
-<title>{{ __('Garage | Viewing Equipment Order') }} {{ $equipment->order_id }}</title>
+<title>{{ __('Garage | Viewing Parts Order') }} {{ $part->order_id }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Equipment') }}
+        {{ __('Parts') }}
     @endsection
 
     @section('description')
-        {{ __('Order') }} {{ __('ID') }} {{ $equipment->order_id }}
+        {{ __('Order') }} {{ __('ID') }} {{ $part->order_id }}
     @endsection
 
     @section('back-button')
@@ -27,7 +27,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/work/order/equipment/edit/'.$equipment->order_id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
+        <a href="{{ url('/work/parts/edit/'.$part->order_id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
     @endsection
 
 @endsection
@@ -139,13 +139,13 @@
                     <div class="d-flex flex-column text-gray-600">
 
                         <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Order ID') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $equipment->order_id }}</div></b></div>
+                        <span class="bullet bg-primary me-3"></span>{{ __('ID') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $part->order_id }}</div></b></div>
 
-                        @php $created_at = Carbon\Carbon::parse($equipment->created_at); @endphp
+                        @php $created_at = Carbon\Carbon::parse($part->created_at); @endphp
                         <div class="d-flex align-items-center py-2">
                         <span class="bullet bg-primary me-3"></span>{{ __('Creation Date') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $created_at->format('Y-m-d H:m') }}</div></b></div>
                             
-                        @php $updated_at = Carbon\Carbon::parse($equipment->updated_at); @endphp
+                        @php $updated_at = Carbon\Carbon::parse($part->updated_at); @endphp
                         <div class="d-flex align-items-center py-2">
                         <span class="bullet bg-primary me-3"></span>{{ __('Last Updated') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $updated_at->format('Y-m-d H:m') }}</div></b></div>
                     
@@ -223,7 +223,7 @@
 
         <!--begin::Layout-->
         <div class="d-flex flex-column flex-lg-row pt-8">
-           
+        
             <!--begin::Card-->
             <div class="card card-flush col-md-12">
                 <!--begin::Card header-->
@@ -249,27 +249,35 @@
                                             <th>{{ __('Code') }}</th>
                                             <th>{{ __('Bar Code') }}</th>
                                             <th>{{ __('Description') }}</th>
+                                            <th>{{ __('Product No.') }}</th>
                                             <th>{{ __('Quantity') }}</th>
                                             <th>{{ __('Unit Cost') }}</th>
-                                            <th>{{ __('Instructions') }}</th>
+                                            <th>{{ __('Total Cost') }}</th>
+                                            <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-700">
-                                        @foreach($order_items as $item)
+                                        @foreach($parts as $item)
+                                            @php $total_cost = $item->order_qty * $item->unit_cost; @endphp
                                             <tr>
                                                 <td>{{ $item->id }}</td>
                                                 <td>{{ $item->code }}</td>
                                                 <td>{{ $item->bar_code }}</td>
                                                 <td>{{ $item->description }}</td>
-                                                <td>{{ $item->quantity }}</td>
-                                                <td>{{ __('$') }} {{ $item->price }}</td>
-                                                <td>{{ $item->instructions }}</td>
+                                                <td>{{ $item->product_no }}</td>
+                                                <td>{{ $item->order_qty }}</td>
+                                                <td>{{ __('$') }} {{ $item->unit_cost }}</td>
+                                                <td>{{ __('$') }} {{ $total_cost }}</td>
+                                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_{{ $item->id }}">
+                                                    {{ __('More Details') }}
+                                                </button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                 </table>
+                                </table>
                             </div>
                         </div>
+
                     </div>
                     <!--end::Permissions-->
                 </div>
@@ -281,6 +289,87 @@
             
         </div>
         <!--end::Layout-->
+
+        @foreach($parts as $item)
+
+        <div class="modal fade" tabindex="-1" id="kt_modal_{{ $item->id }}">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ __('Item ID') }} {{ $item->id }}</h5>
+        
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="svg-icon svg-icon-2x"></span>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+        
+                    <div class="modal-body">
+
+                        @php $total_cost = $item->order_qty * $item->unit_cost; @endphp
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Code') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->code }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Bar Code') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->bar_code }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Description') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->description }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Product Number') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->product_no }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Unit Cost') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ __('$') }} {{ $item->unit_cost }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Unit Cost Today') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">@if($item->unit_cost_today) {{ __('$') }} @endif {{ $item->unit_cost_today }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Total Cost') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ __('$') }} {{ $total_cost }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Quantity Rec.') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->qty_rec }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Quantity Rec. Today') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->qty_rec_today }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Date Rec.') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->date_rec }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Quantity Return') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->qty_return }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Instructions') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->instructions }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Type') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->type }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Model') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->model }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Make') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->make }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Style') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->style }}</div></b></div>
+
+                        <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{{ __('Category') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 1rem;">{{ $item->category }}</div></b></div>
+
+                    </div>
+        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @endforeach
 
     </div>
 </div>
@@ -302,8 +391,8 @@
         });
 
         // add active classes to sidebar (current page)
-        $('.menu-equipment-accordion').addClass('hover show');
-        $('.menu-equipment-orders-list').addClass('show');
+        $('.menu-parts-accordion').addClass('hover show');
+        $('.menu-parts-orders-list').addClass('show');
 
 
     });

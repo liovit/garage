@@ -9,7 +9,7 @@
     @endsection
 
     @section('description')
-        {{ __('List') }}
+        {{ __('Delete') }}
     @endsection
 
     @section('back-button')
@@ -141,16 +141,24 @@
 
 @endsection
 
-@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-<script>
+    <script>
 
-    $('.components > li').each(function() {
-        $(this).removeClass("active");
-    });
-    $('#users-link').addClass("active");
-    $('#homeSubmenu').addClass("show");
+        $(document).ready( function () {
 
-</script>
+            // remove active classes from sidebar
+            $('.menu-item').each(function() {
+                $(this).removeClass('here');
+                $(this).removeClass('show');
+            });
 
-@endsection
+            // add active classes to sidebar (current page)
+            $('.menu-users-accordion').addClass('hover show');
+            $('.menu-users-list').addClass('show');
+
+        });
+
+    </script>

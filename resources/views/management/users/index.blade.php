@@ -1,11 +1,11 @@
 @extends('home')
 
-<title>{{ __('Garage | Customers List') }}</title>
+<title>{{ __('Garage | Users List') }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Customers') }}
+        {{ __('Users') }}
     @endsection
 
     @section('description')
@@ -27,7 +27,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/customers/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
+        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
     @endsection
 
 @endsection
@@ -135,7 +135,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search customers') }}" />
+                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search users') }}" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -159,8 +159,8 @@
                             </span>
                             <!--end::Svg Icon-->{{ __('Export') }}</button>
                             <!--end::Export-->
-                            <!--begin::Add Customer-->
-                            <a href="{{ url('/management/customers/create') }}" class="btn btn-primary">
+                            <!--begin::Add user-->
+                            <a href="{{ url('/management/users/create') }}" class="btn btn-primary">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -168,8 +168,8 @@
                                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                 </svg>
                             </span>
-                            <!--end::Svg Icon-->{{ __('New Customer') }}</a>
-                            <!--end::Add Customer-->
+                            <!--end::Svg Icon-->{{ __('Add User') }}</a>
+                            <!--end::Add user-->
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
@@ -188,7 +188,7 @@
                                     <!--begin::Modal header-->
                                     <div class="modal-header">
                                         <!--begin::Modal title-->
-                                        <h2 class="fw-bolder">{{ __('Export Customers') }}</h2>
+                                        <h2 class="fw-bolder">{{ __('Export Users') }}</h2>
                                         <!--end::Modal title-->
                                         <!--begin::Close-->
                                         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-dismiss="modal">
@@ -251,23 +251,20 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_customers">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                 <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_customers .form-check-input" value="1" />
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                     </div>
                                 </th>
-                                {{-- <th class="min-w-125px">ID</th> --}}
-                                <th class="min-w-125px">{{ __('Company') }}</th>
-                                <th class="min-w-125px">{{ __('Name') }}</th>
-                                <th class="min-w-125px">{{ __('Phone') }}</th>
-                                <th class="min-w-125px">{{ __('City') }}</th>
-                                <th class="min-w-125px">{{ __('State') }}</th>
-                                <th class="min-w-125px">{{ __('Address') }}</th>
+                                <th class="min-w-125px">{{ __('User') }}</th>
+                                <th class="min-w-125px">{{ __('Role') }}</th>
+                                <th class="min-w-125px">{{ __('Last Login') }}</th>
+                                <th class="min-w-125px">{{ __('Joined Date') }}</th>
                                 <th class="text-end min-w-100px">{{ __('Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
@@ -276,85 +273,49 @@
                         <!--begin::Table body-->
                         <tbody class="text-gray-600 fw-bold">
 
-                            @foreach($customers as $customer)    
+                            @foreach($users as $user)    
 
                             <!--begin::Table row-->
                             <tr>
                                 <!--begin::Checkbox-->
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="{{ $customer->id }}" />
+                                        <input class="form-check-input" type="checkbox" value="{{ $user->id }}" />
                                     </div>
                                 </td>
                                 <!--end::Checkbox-->
-                                <!--begin::Company=-->
+                                <!--begin::User=-->
+                                <td class="d-flex align-items-center">
+                                    <!--begin::User details-->
+                                    <div class="d-flex flex-column">
+                                        <a href="{{ url('/management/users/'.$user->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name . " " . $user->last_name }}</a>
+                                        <span>{{ $user->email }}</span>
+                                    </div>
+                                    <!--begin::User details-->
+                                </td>
+                                <!--end::User=-->
+                                <!--begin::Role=-->
+
+                                @php $roles = $user->getRoleNames(); @endphp
                                 
                                 <td>
-                                    <div class="d-flex flex-column">
-                                        <a href="{{ url('/management/customers/'.$customer->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $customer->company }}</a>
-                                    </div>
+                                    @foreach ($roles as $r)
+                                        {{ $r }}
+                                    @endforeach
                                 </td>
 
-                                <!--end::Company=-->
-
-                                <!--begin::Name=-->
-                                
+                                <!--end::Role=-->
+                                <!--begin::Last login=-->
                                 <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->name }}
-                                    </div>
+                                    <div class="badge badge-light fw-bolder">{{ $user->last_login }}</div>
                                 </td>
+                                <!--end::Last login=-->
+                                <!--begin::Joined-->
 
-                                <!--end::Name=-->
+                                @php $createdAt = Carbon\Carbon::parse($user->created_at) @endphp
 
-                                <!--begin::Phone=-->
-                                
-                                <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->telephone }}
-                                    </div>
-                                </td>
-
-                                <!--end::Phone=-->
-
-                                 <!--begin::City=-->
-                                
-                                 <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->city }}
-                                    </div>
-                                </td>
-
-                                <!--end::City=-->
-
-                                 <!--begin::State=-->
-                                
-                                 <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->state }}
-                                    </div>
-                                </td>
-
-                                <!--end::State=-->
-
-                                <!--begin::Address=-->
-                                
-                                <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->address }}
-                                    </div>
-                                </td>
-
-                                <!--end::Address=-->
-
-                                <!--begin::Creation-->
-
-                                {{-- @php $createdAt = Carbon\Carbon::parse($supplier->created_at) @endphp
-
-                                <td>{{ $createdAt->format('Y-m-d') }}</td> --}}
-
-                                <!--end::Creation-->
-
+                                <td>{{ $createdAt->format('Y-m-d') }}</td>
+                                <!--begin::Joined-->
                                 <!--begin::Action=-->
                                 <td class="text-end">
                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">{{ __('Actions') }}
@@ -368,16 +329,16 @@
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
-                                        @canany(['customer.management.edit', 'everything'])
+                                        @canany(['users.management.edit', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/edit/'.$customer->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                                <a href="{{ url('/management/users/edit/'.$user->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
-                                        @canany(['customer.management.delete', 'everything'])
+                                        @canany(['users.management.delete', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/pre-delete/'.$customer->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
+                                                <a href="{{ url('/management/users/pre-delete/'.$user->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
@@ -443,13 +404,13 @@
             });
 
             // add active classes to sidebar (current page)
-            // $('.menu-users-accordion').addClass('hover show');
-            $('.menu-customers-list').addClass('show');
+            $('.menu-users-accordion').addClass('hover show');
+            $('.menu-users-list').addClass('show');
 
             // instance of datatables, users list table
-            var table = $('#kt_table_customers').DataTable({
+            var table = $('#kt_table_users').DataTable({
                 info: !1,
-                "order": [[ 1, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 colReorder: true,
                 stateSave: true,
                 "stateSaveParams": function (settings, data) {
@@ -457,10 +418,10 @@
                 },
                 pageLength: 10,
                 lengthChange: !1,
-                // columnDefs: [
-                //     { orderable: !1, targets: 0 },
-                //     { orderable: !0, targets: 2 },
-                // ],
+                columnDefs: [
+                    { orderable: !1, targets: 0 },
+                    { orderable: !1, targets: 5 },
+                ],
             });
 
             // adjust our own input for datatables search function

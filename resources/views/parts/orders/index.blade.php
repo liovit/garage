@@ -1,15 +1,15 @@
 @extends('home')
 
-<title>{{ __('Garage | Customers List') }}</title>
+<title>{{ __('Garage | Parts Orders List') }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Customers') }}
+        {{ __('Parts') }}
     @endsection
 
     @section('description')
-        {{ __('List') }}
+        {{ __('Orders List') }}
     @endsection
 
     @section('back-button')
@@ -27,7 +27,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/customers/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
+        <a href="{{ url('/work/parts/order') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
     @endsection
 
 @endsection
@@ -135,7 +135,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search customers') }}" />
+                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search orders') }}" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -148,7 +148,7 @@
                             <div id="columnsvis"></div>
                             <!--end::Filter-->
                             <!--begin::Export-->
-                            <button type="button" class="btn btn-light-primary me-3" data-toggle="modal" data-target="#exportmodal">
+                            <button type="button" class="btn btn-light-primary me-3" data-toggle="modal" style="height: 44px;" data-target="#exportmodal">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -159,17 +159,17 @@
                             </span>
                             <!--end::Svg Icon-->{{ __('Export') }}</button>
                             <!--end::Export-->
-                            <!--begin::Add Customer-->
-                            <a href="{{ url('/management/customers/create') }}" class="btn btn-primary">
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->{{ __('New Customer') }}</a>
-                            <!--end::Add Customer-->
+                            <!--begin::Add Order-->
+                            <a href="{{ url('/work/parts/order') }}" class="btn btn-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->{{ __('New Order') }}</a>
+                            <!--end::Add Order-->
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
@@ -188,7 +188,7 @@
                                     <!--begin::Modal header-->
                                     <div class="modal-header">
                                         <!--begin::Modal title-->
-                                        <h2 class="fw-bolder">{{ __('Export Customers') }}</h2>
+                                        <h2 class="fw-bolder">{{ __('Export Orders') }}</h2>
                                         <!--end::Modal title-->
                                         <!--begin::Close-->
                                         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-dismiss="modal">
@@ -251,24 +251,25 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_customers">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_parts_orders">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
+                                {{-- <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_customers .form-check-input" value="1" />
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_orders .form-check-input" value="1" />
                                     </div>
-                                </th>
-                                {{-- <th class="min-w-125px">ID</th> --}}
-                                <th class="min-w-125px">{{ __('Company') }}</th>
-                                <th class="min-w-125px">{{ __('Name') }}</th>
-                                <th class="min-w-125px">{{ __('Phone') }}</th>
-                                <th class="min-w-125px">{{ __('City') }}</th>
-                                <th class="min-w-125px">{{ __('State') }}</th>
-                                <th class="min-w-125px">{{ __('Address') }}</th>
-                                <th class="text-end min-w-100px">{{ __('Actions') }}</th>
+                                </th> --}}
+                                <th class="">{{ __('ID') }}</th>
+                                <th class="">{{ __('Supplier') }}</th>
+                                <th class="">{{ __('Ref.') }}</th>
+                                <th class="">{{ __('Date') }}</th>
+                                <th class="">{{ __('Garage') }}</th>
+                                <th class="">{{ __('Accounting Ref.') }}</th>
+                                <th class="">{{ __('Total') }}</th>
+                                <th class="">{{ __('Status') }}</th>
+                                <th class="text-end">{{ __('Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -276,84 +277,122 @@
                         <!--begin::Table body-->
                         <tbody class="text-gray-600 fw-bold">
 
-                            @foreach($customers as $customer)    
+                            @foreach($parts_orders->unique('order_id') as $order)  
 
                             <!--begin::Table row-->
                             <tr>
-                                <!--begin::Checkbox-->
-                                <td>
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="{{ $customer->id }}" />
-                                    </div>
-                                </td>
-                                <!--end::Checkbox-->
-                                <!--begin::Company=-->
-                                
+
+                                <!--begin::ID-->
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <a href="{{ url('/management/customers/'.$customer->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $customer->company }}</a>
+                                        <a href="{{ url('/work/parts/order/'.$order->order_id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $order->order_id }}</a>
                                     </div>
                                 </td>
+                                <!--end::ID-->
 
-                                <!--end::Company=-->
+                                <!--begin::Supplier=-->
 
-                                <!--begin::Name=-->
+                                @php $supplier = App\Models\Supplier::find($order->supplier_id); @endphp
                                 
                                 <td>
                                     <div class="d-flex flex-column">
-                                       {{ $customer->name }}
+                                        {{ $supplier->supplier_company }}
                                     </div>
                                 </td>
 
-                                <!--end::Name=-->
+                                <!--end::Supplier=-->
 
-                                <!--begin::Phone=-->
+                                <!--begin::Reference=-->
                                 
                                 <td>
                                     <div class="d-flex flex-column">
-                                       {{ $customer->telephone }}
+                                       -
                                     </div>
                                 </td>
 
-                                <!--end::Phone=-->
+                                <!--end::Reference=-->
 
-                                 <!--begin::City=-->
-                                
-                                 <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->city }}
-                                    </div>
-                                </td>
+                                <!--begin::Date=-->
 
-                                <!--end::City=-->
+                                @php $createdAt = Carbon\Carbon::parse($order->created_at) @endphp
 
-                                 <!--begin::State=-->
-                                
-                                 <td>
-                                    <div class="d-flex flex-column">
-                                       {{ $customer->state }}
-                                    </div>
-                                </td>
-
-                                <!--end::State=-->
-
-                                <!--begin::Address=-->
-                                
                                 <td>
                                     <div class="d-flex flex-column">
-                                       {{ $customer->address }}
+                                        <div class="badge badge-light fw-bolder">{{ $createdAt->format('Y-m-d h:m') }}</div>
                                     </div>
                                 </td>
 
-                                <!--end::Address=-->
+                                <!--end::Date=-->
 
-                                <!--begin::Creation-->
+                                <!--begin::Garage=-->
 
-                                {{-- @php $createdAt = Carbon\Carbon::parse($supplier->created_at) @endphp
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        {{ $order->garage_location }}
+                                    </div>
+                                </td>
 
-                                <td>{{ $createdAt->format('Y-m-d') }}</td> --}}
+                                <!--end::Garage=-->
 
-                                <!--end::Creation-->
+                                <!--begin::Accounting Ref.=-->
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        -
+                                    </div>
+                                </td>
+
+                                <!--end::Accounting Ref.=-->
+
+                                <!--begin::Total=-->
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        -
+                                    </div>
+                                </td>
+
+                                <!--end::Total=-->
+
+                                <!--begin::Status=-->
+
+                                @if($order->order_status == 1)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="badge badge-light fw-bolder">{{ __('Created') }}</div>
+                                        </div>
+                                    </td>
+                                @endif
+                                @if($order->order_status == 2)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="badge badge-success fw-bolder">{{ __('Received') }}</div>
+                                        </div>
+                                    </td>
+                                @endif
+                                @if($order->order_status == 3)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="badge badge-primary fw-bolder">{{ __('Processing') }}</div>
+                                        </div>
+                                    </td>
+                                @endif
+                                @if($order->order_status == 4)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="badge badge-warning fw-bolder">{{ __('Return') }}</div>
+                                        </div>
+                                    </td>
+                                @endif
+                                @if($order->order_status == 5)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="badge badge-success fw-bolder">{{ __('Returned') }}</div>
+                                        </div>
+                                    </td>
+                                @endif
+
+                                <!--end::Status=-->
 
                                 <!--begin::Action=-->
                                 <td class="text-end">
@@ -368,16 +407,23 @@
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
-                                        @canany(['customer.management.edit', 'everything'])
+                                        @canany(['parts.view', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/edit/'.$customer->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                                <a href="{{ url('/work/parts/order/'.$order->order_id) }}" class="menu-link px-3">{{ __('View') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
-                                        @canany(['customer.management.delete', 'everything'])
+                                        @canany(['parts.edit', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/pre-delete/'.$customer->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
+                                                <a href="{{ url('/work/parts/edit/'.$order->order_id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                            </div>
+                                        @endcanany
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        @canany(['parts.delete', 'everything'])
+                                            <div class="menu-item px-3">
+                                                <a href="{{ url('/work/parts/order/pre-delete/'.$order->order_id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
@@ -443,13 +489,13 @@
             });
 
             // add active classes to sidebar (current page)
-            // $('.menu-users-accordion').addClass('hover show');
-            $('.menu-customers-list').addClass('show');
+            $('.menu-parts-accordion').addClass('hover show');
+            $('.menu-parts-orders-list').addClass('show');
 
             // instance of datatables, users list table
-            var table = $('#kt_table_customers').DataTable({
+            var table = $('#kt_table_parts_orders').DataTable({
                 info: !1,
-                "order": [[ 1, "desc" ]],
+                "order": [[ 3, "desc" ]],
                 colReorder: true,
                 stateSave: true,
                 "stateSaveParams": function (settings, data) {

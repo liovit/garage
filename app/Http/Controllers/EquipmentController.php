@@ -411,10 +411,10 @@ class EquipmentController extends Controller
 
         if($user->hasAnyPermission(['equipment.orders.view', 'everything'])) {
 
-            $eq = Equipment_Order::where('order_id', '=', $id)->first();
-            $supplier = Supplier::find($eq->supplier_id);
-            $eqs = Equipment_Order::where('order_id', '=', $id)->get();
-            return view('equipment.orders.view', compact('eq', 'supplier', 'eqs'));
+            $equipment = Equipment_Order::where('order_id', '=', $id)->first();
+            $supplier = Supplier::find($equipment->supplier_id);
+            $order_items = Equipment_Order::where('order_id', '=', $id)->get();
+            return view('equipment.orders.view', compact('equipment', 'supplier', 'order_items'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');

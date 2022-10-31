@@ -45,7 +45,7 @@ class OrdersController extends Controller
 
         if($user->hasAnyPermission(['orders.access', 'everything'])) {
             $orders = Order::all();
-            $vehicles = Vehicle::all();
+            $vehicles = Vehicle::all('id', 'vin_code', 'type');
             return view('orders.index', compact('orders', 'user', 'vehicles'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');

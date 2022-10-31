@@ -1,6 +1,6 @@
 @extends('home')
 
-<title>{{ __('Garage | Edit User') }} {{ $user->name . ' ' . $user->last_name }}</title>
+<title>{{ __('Garage | Create New User') }}</title>
 
 @section('toolbar-content')
 
@@ -9,7 +9,7 @@
     @endsection
 
     @section('description')
-        {{ __('Edit User') }} {{ $user->name . ' ' . $user->last_name }}
+        {{ __('Create New User') }}
     @endsection
 
     @section('back-button')
@@ -28,7 +28,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/users/edit/'.$user->id) }}" class="btn btn-sm btn-primary">
+        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">
             <span class="svg-icon svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/General/Update.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"/>
@@ -146,8 +146,7 @@
 
                     {{-- @php echo getcwd(); @endphp --}}
 
-                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/users/edit/confirm/'.$user->id) }}" method="post" enctype="multipart/form-data" autocomplete="off">
-                        {{ method_field('PUT') }}
+                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/users/confirm-creation') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
@@ -157,11 +156,7 @@
                             <!--begin::Image input-->
                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/media/svg/avatars/blank.svg')">
                                 <!--begin::Preview existing avatar-->
-                                @if($user->avatar)
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{ $user->avatar }}');"></div>
-                                @else
-                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/media/svg/avatars/blank.svg');"></div>
-                                @endif
+                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/media/svg/avatars/blank.svg');"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="{{ __('Change avatar') }}">
@@ -191,7 +186,7 @@
                                 <label class="required fw-bold fs-6 mb-2 ">{{ __('First Name') }}</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="name" value="{{ $user->name }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="John"/>
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="John"/>
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
@@ -202,7 +197,7 @@
                                 <label class="required fw-bold fs-6 mb-2">{{ __('Last Name') }}</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="last_name" value="{{ $user->last_name }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Smith" />
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Smith" />
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
@@ -215,7 +210,7 @@
                             <label class="required fw-bold fs-6 mb-2">{{ __('Email') }}</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="email" name="email" value="{{ $user->email }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="smith@domain.com" />
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="smith@domain.com" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -225,7 +220,7 @@
                             <!--begin::Input group-->
                             <div class="fv-row mb-7 col-md-6 col-xs-12">
                                 <!--begin::Label-->
-                                <label class="fw-bold fs-6 mb-2">{{ __('Password') }}</label>
+                                <label class="required fw-bold fs-6 mb-2">{{ __('Password') }}</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
                                 <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="*********" />
@@ -236,10 +231,10 @@
                             <!--begin::Input group-->
                             <div class="fv-row mb-7 col-md-6 col-xs-12">
                                 <!--begin::Label-->
-                                <label class="fw-bold fs-6 mb-2">{{ __('Date Of Birth') }}</label>
+                                <label class="required fw-bold fs-6 mb-2">{{ __('Date Of Birth') }}</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="date" name="date_of_birth" value="{{ $user->date_of_birth }}" class="form-control form-control-solid mb-3 mb-lg-0" data-bs-toggle="tooltip" title="Enter date of birth here" />
+                                <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" class="form-control form-control-solid mb-3 mb-lg-0" data-bs-toggle="tooltip" title="Enter date of birth here" />
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
@@ -252,7 +247,7 @@
                             <label class="required fw-bold fs-6 mb-2">{{ __('Phone Number') }}</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" name="phone" value="{{ $user->phone }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -260,50 +255,12 @@
                         <!--begin::Input group-->
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="fw-bold fs-6 mb-2">{{ __('Address') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" name="address" value="{{ $user->address }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="65 Buddy Moore Rd" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-
-                        <div class="form-group row">
-
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
-                                <!--begin::Label-->
-                                <label class="fw-bold fs-6 mb-2">{{ __('City') }}</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" name="city" value="{{ $user->city }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Halls" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
-                                <!--begin::Label-->
-                                <label class="fw-bold fs-6 mb-2">{{ __('Post Code') }}</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" name="post" value="{{ $user->post }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="TN 38040" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-
-                        </div>
-
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-5 mt-3">{{ __('Role') }}</label>
+                            <label class="required fw-bold fs-6 mb-5">{{ __('Role') }}</label>
                             <!--end::Label-->
                             <!--begin::Roles-->
 
                             @php
                                 $rid = 0;
-                                $roleid = $user->roles->first()->id;
                             @endphp
 
                             @foreach($roles as $r)
@@ -312,12 +269,12 @@
                                 <!--begin::Radio-->
                                 <div class="form-check form-check-custom form-check-solid">
                                     <!--begin::Input-->
-                                    <input class="form-check-input me-3" name="role" type="radio" value="{{ $r->id }}" id="kt_modal_update_role_option_{{ $rid }}" @if($r->id == $roleid) checked="checked" @endif required/>
+                                    <input class="form-check-input me-3" name="role" type="radio" value="{{ $r->id }}" id="kt_modal_update_role_option_{{ $rid }}" required/>
                                     <!--end::Input-->
                                     <!--begin::Label-->
                                     <label class="form-check-label" for="kt_modal_update_role_option_{{ $rid }}">
                                         <div class="fw-bolder text-gray-800">{{ $r->name }}</div>
-                                        <div class="text-gray-600">{{ __('Role description') }}</div>
+                                        <div class="text-gray-600">{{ $r->description }}</div>
                                     </label>
                                     <!--end::Label-->
                                 </div>
@@ -332,93 +289,9 @@
                             <!--end::Roles-->
                         </div>
                         <!--end::Input group-->
-
-                        @php
-                            $json = $user->notifications; 
-                            $notificationsArray = json_decode($json);
-                        @endphp
-                        
-                        <!--begin::Label-->
-                        <label class="required fw-bold fs-6 mb-5 mt-4">{{ __('Email Notifications') }}</label>
-                        <!--end::Label-->
-
-                        <!--begin::Item-->
-                        <div class="d-flex">
-                            <!--begin::Checkbox-->
-                            <div class="form-check form-check-custom form-check-solid">
-                                <!--begin::Input-->
-                                <input class="form-check-input me-3" name="email_notification_1" type="checkbox" value="1" id="kt_modal_update_email_notification_0" @if(in_array(1, $notificationsArray)) checked="checked" @endif/>
-                                <!--end::Input-->
-                                <!--begin::Label-->
-                                <label class="form-check-label" for="kt_modal_update_email_notification_0">
-                                    <div class="fw-bolder">{{ __('Events') }}</div>
-                                    <div class="text-gray-600">{{ __('Receive a notification for every upcoming event.') }}</div>
-                                </label>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Checkbox-->
-                        </div>
-                        <!--end::Item-->
-                        <div class='separator separator-dashed my-5'></div>
-                        <!--begin::Item-->
-                        <div class="d-flex">
-                            <!--begin::Checkbox-->
-                            <div class="form-check form-check-custom form-check-solid">
-                                <!--begin::Input-->
-                                <input class="form-check-input me-3" name="email_notification_2" type="checkbox" value="2" id="kt_modal_update_email_notification_1" @if(in_array(2, $notificationsArray)) checked="checked" @endif />
-                                <!--end::Input-->
-                                <!--begin::Label-->
-                                <label class="form-check-label" for="kt_modal_update_email_notification_1">
-                                    <div class="fw-bolder">{{ __('Equipment warranty') }}</div>
-                                    <div class="text-gray-600">{{ __("Receive a notification when any equipment item's warranty is running out.") }}</div>
-                                </label>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Checkbox-->
-                        </div>
-                        <!--end::Item-->
-                        <div class='separator separator-dashed my-5'></div>
-                        <!--begin::Item-->
-                        <div class="d-flex">
-                            <!--begin::Checkbox-->
-                            <div class="form-check form-check-custom form-check-solid">
-                                <!--begin::Input-->
-                                <input class="form-check-input me-3" name="email_notification_3" type="checkbox" value="3" id="kt_modal_update_email_notification_2" @if(in_array(3, $notificationsArray)) checked="checked" @endif/>
-                                <!--end::Input-->
-                                <!--begin::Label-->
-                                <label class="form-check-label" for="kt_modal_update_email_notification_2">
-                                    <div class="fw-bolder">{{ __('Parts') }}</div>
-                                    <div class="text-gray-600">{{ ('Receive a notification when garage is running low on parts.') }}</div>
-                                </label>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Checkbox-->
-                        </div>
-                        <!--end::Item-->
-                        <div class='separator separator-dashed my-5'></div>
-                        <!--begin::Item-->
-                        <div class="d-flex">
-                            <!--begin::Checkbox-->
-                            <div class="form-check form-check-custom form-check-solid">
-                                <!--begin::Input-->
-                                <input class="form-check-input me-3" name="email_notification_4" type="checkbox" value="4" id="kt_modal_update_email_notification_3" @if(in_array(4, $notificationsArray)) checked="checked" @endif />
-                                <!--end::Input-->
-                                <!--begin::Label-->
-                                <label class="form-check-label" for="kt_modal_update_email_notification_3">
-                                    <div class="fw-bolder">{{ __('Tasks') }}</div>
-                                    <div class="text-gray-600">{{ __('Receive a notification every time a new task is assigned to me.') }}</div>
-                                </label>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Checkbox-->
-                        </div>
-                        <!--end::Item-->
-                
-                        <div class='separator separator-dashed my-5'></div>
-
                         <!--begin::Actions-->
                         <div class="" style="float:right;">
-                            <a href="{{ url('/management/users') }}" class="btn btn-light me-3">{{ __('Discard') }}</a>
+                            <a href="{{ url('/management/users/create') }}" class="btn btn-light me-3">{{ __('Discard') }}</a>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">{{ __('Submit') }}</span>
                                 <span class="indicator-progress">{{ __('Please wait...') }}
@@ -444,6 +317,17 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+
     <script>
 
         $(document).ready( function () {
@@ -457,6 +341,7 @@
             // add active classes to sidebar (current page)
             $('.menu-users-accordion').addClass('hover show');
             $('.menu-users-list').addClass('show');
+
 
         });
 

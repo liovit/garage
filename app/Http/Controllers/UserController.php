@@ -33,7 +33,7 @@ class UserController extends Controller
         if($user->hasAnyPermission(['users.management.view', 'users.management.access', 'everything'])) {
 
             $users = User::all();
-            return view('management.users', compact('users'));
+            return view('management.users.index', compact('users'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         if($user->hasAnyPermission(['users.management.create', 'everything'])) {
             $roles = Role::all();
-            return view('management.users_create', compact('roles'));
+            return view('management.users.create', compact('roles'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -133,7 +133,7 @@ class UserController extends Controller
 
         if($authUser->hasAnyPermission(['users.management.view', 'everything'])) {
             $user = User::find($id);
-            return view('management.users_view', compact('user'));
+            return view('management.users.view', compact('user'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -154,7 +154,7 @@ class UserController extends Controller
         if($authUser->hasAnyPermission(['users.management.edit', 'everything'])) {
             $user = User::find($id);
             $roles = Role::all();
-            return view('management.users_edit', compact('user', 'roles'));
+            return view('management.users.edit', compact('user', 'roles'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -164,8 +164,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, $id)
@@ -177,7 +177,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
-        $array = $this->validateNotifications($request);
+        $array = $this->formNotifications($request);
 
         if($request->password) {
             $user->update([
@@ -241,7 +241,7 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        $array = $this->validateNotifications($request);
+        $array = $this->formNotifications($request);
 
         $user->notifications = json_encode($array);
         $user->save();
@@ -263,7 +263,7 @@ class UserController extends Controller
 
         if($authUser->hasAnyPermission(['users.management.delete', 'everything'])) {
             $user = User::find($id);
-            return view('management.users_delete', compact('user'));
+            return view('management.users.delete', compact('user'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -306,7 +306,7 @@ class UserController extends Controller
      * @param  array $array
      * @return array $array
      */
-    public function validateNotifications($request)
+    public function formNotifications($request)
     {
 
         $array = [];

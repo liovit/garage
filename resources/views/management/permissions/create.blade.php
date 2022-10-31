@@ -1,21 +1,21 @@
 @extends('home')
 
-<title>{{ __('Garage | Create New User') }}</title>
+<title>{{ __('Garage | Create New Permission') }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Users') }}
+        {{ __('Permissions') }}
     @endsection
 
     @section('description')
-        {{ __('Create New User') }}
+        {{ __('Create New Permission') }}
     @endsection
 
     @section('back-button')
         <div class="m-0">
             {{-- <a href="{{ url()->previous() }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"> --}}
-            <a href="{{ url('/management/users') }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
+            <a href="{{ url('/management/permissions') }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
             <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/Navigation/Angle-double-left.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <polygon points="0 0 24 0 24 24 0 24"/>
@@ -28,7 +28,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">
+        <a href="{{ url('/management/permissions/create') }}" class="btn btn-sm btn-primary">
             <span class="svg-icon svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/General/Update.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"/>
@@ -146,152 +146,27 @@
 
                     {{-- @php echo getcwd(); @endphp --}}
 
-                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/users/confirm-creation') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/permissions/confirm-creation') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                         @csrf
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="d-block fw-bold fs-6 mb-5">{{ __('Avatar') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Image input-->
-                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/media/svg/avatars/blank.svg')">
-                                <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/media/svg/avatars/blank.svg');"></div>
-                                <!--end::Preview existing avatar-->
-                                <!--begin::Label-->
-                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="{{ __('Change avatar') }}">
-                                    <i class="bi bi-pencil-fill fs-7"></i>
-                                    <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                    <input type="hidden" name="avatar_remove" />
-                                    <!--end::Inputs-->
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Cancel-->
-                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="{{ __('Cancel avatar') }}">
-                                    <i class="bi bi-x fs-2"></i>
-                                </span>
-                            </div>
-                            <!--end::Image input-->
-                            <!--begin::Hint-->
-                            <div class="form-text">{{ __('Allowed file types: png, jpg, jpeg.') }}</div>
-                            <!--end::Hint-->
-                        </div>
 
                         <div class="form-group row">
 
                             <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <div class="fv-row mb-7 col-md-12 col-xs-12">
                                 <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2 ">{{ __('First Name') }}</label>
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Title') }}</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="John"/>
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
-                                <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2">{{ __('Last Name') }}</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Smith" />
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="trash.bin.view"/>
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->
 
                         </div>
 
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">{{ __('Email') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="smith@domain.com" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-
-                        <div class="form-group row">
-
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
-                                <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2">{{ __('Password') }}</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="*********" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7 col-md-6 col-xs-12">
-                                <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2">{{ __('Date Of Birth') }}</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" class="form-control form-control-solid mb-3 mb-lg-0" data-bs-toggle="tooltip" title="Enter date of birth here" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-
-                        </div>
-
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-2">{{ __('Phone Number') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="required fw-bold fs-6 mb-5">{{ __('Role') }}</label>
-                            <!--end::Label-->
-                            <!--begin::Roles-->
-
-                            @php
-                                $rid = 0;
-                            @endphp
-
-                            @foreach($roles as $r)
-                            <!--begin::Input row-->
-                            <div class="d-flex fv-row">
-                                <!--begin::Radio-->
-                                <div class="form-check form-check-custom form-check-solid">
-                                    <!--begin::Input-->
-                                    <input class="form-check-input me-3" name="role" type="radio" value="{{ $r->id }}" id="kt_modal_update_role_option_{{ $rid }}" required/>
-                                    <!--end::Input-->
-                                    <!--begin::Label-->
-                                    <label class="form-check-label" for="kt_modal_update_role_option_{{ $rid }}">
-                                        <div class="fw-bolder text-gray-800">{{ $r->name }}</div>
-                                        <div class="text-gray-600">{{ __('Role description') }}</div>
-                                    </label>
-                                    <!--end::Label-->
-                                </div>
-                                <!--end::Radio-->
-                            </div>
-                            <!--end::Input row-->
-                            <div class='separator separator-dashed my-5'></div>
-
-                            @php $rid++; @endphp
-
-                            @endforeach
-                            <!--end::Roles-->
-                        </div>
-                        <!--end::Input group-->
                         <!--begin::Actions-->
                         <div class="" style="float:right;">
-                            <a href="{{ url('/management/users/create') }}" class="btn btn-light me-3">{{ __('Discard') }}</a>
+                            <a href="{{ url('/management/permissions/create') }}" class="btn btn-light me-3">{{ __('Discard') }}</a>
                             <button type="submit" class="btn btn-primary">
                                 <span class="indicator-label">{{ __('Submit') }}</span>
                                 <span class="indicator-progress">{{ __('Please wait...') }}
@@ -340,7 +215,7 @@
 
             // add active classes to sidebar (current page)
             $('.menu-users-accordion').addClass('hover show');
-            $('.menu-users-list').addClass('show');
+            $('.menu-permissions-list').addClass('show');
 
 
         });

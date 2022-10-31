@@ -119,9 +119,9 @@ class VehiclesController extends Controller
 
             $vehicle = Vehicle::find($id);
 
-            $history = Order::where([['vehicle_id', '=', $vehicle->id], ['order_fill_status', '=', 7]])->get();
+            $orders_history = Order::where([['vehicle_id', '=', $vehicle->id], ['order_fill_status', '=', 7]])->get();
 
-            return view('vehicles.view', compact('vehicle', 'history'));
+            return view('vehicles.view', compact('vehicle', 'orders_history'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');

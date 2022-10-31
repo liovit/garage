@@ -74,4 +74,34 @@ class Part extends Model
 
     ];
 
+    public function getFirstPicture($id) 
+    {
+
+        $part = Part::find($id);
+        $pics = json_decode($part->pictures);
+
+        return $pics[0];
+
+    }
+
+    public function getSupplierCompany($id) 
+    {
+
+        $part = Part::find($id);
+        $supplier = Supplier::find($part->supplier_id);
+
+        return $supplier->supplier_company;
+
+    }
+
+    public function getSupplierId($id) 
+    {
+
+        $part = Part::find($id);
+        $supplier = Supplier::find($part->supplier_id);
+
+        return $supplier->id;
+
+    }
+
 }

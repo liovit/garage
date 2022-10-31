@@ -1,15 +1,15 @@
 @extends('home')
 
-<title>{{ __('Garage | Users List') }}</title>
+<title>{{ __('Garage | Parts Inventory List') }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Users') }}
+        {{ __('Parts') }}
     @endsection
 
     @section('description')
-        {{ __('List') }}
+        {{ __('Inventory List') }}
     @endsection
 
     @section('back-button')
@@ -27,7 +27,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/management/users/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
+        <a href="{{ url('/work/parts/garage') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
     @endsection
 
 @endsection
@@ -135,7 +135,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search user') }}" />
+                            <input type="text" id="searchinput" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="{{ __('Search inventory') }}" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -148,7 +148,7 @@
                             <div id="columnsvis"></div>
                             <!--end::Filter-->
                             <!--begin::Export-->
-                            <button type="button" class="btn btn-light-primary me-3" data-toggle="modal" data-target="#exportmodal">
+                            <button type="button" class="btn btn-light-primary me-3" data-toggle="modal" style="height: 44px;" data-target="#exportmodal">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -159,17 +159,17 @@
                             </span>
                             <!--end::Svg Icon-->{{ __('Export') }}</button>
                             <!--end::Export-->
-                            <!--begin::Add user-->
-                            <a href="{{ url('/management/users/create') }}" class="btn btn-primary">
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->{{ __('Add User') }}</a>
-                            <!--end::Add user-->
+                            <!--begin::Add Order-->
+                            <a href="{{ url('/work/parts/create') }}" class="btn btn-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->{{ __('New Item') }}</a>
+                            <!--end::Add Order-->
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
@@ -188,7 +188,7 @@
                                     <!--begin::Modal header-->
                                     <div class="modal-header">
                                         <!--begin::Modal title-->
-                                        <h2 class="fw-bolder">{{ __('Export Users') }}</h2>
+                                        <h2 class="fw-bolder">{{ __('Export Orders') }}</h2>
                                         <!--end::Modal title-->
                                         <!--begin::Close-->
                                         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-dismiss="modal">
@@ -251,21 +251,25 @@
                 <!--begin::Card body-->
                 <div class="card-body py-4">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_parts_orders">
                         <!--begin::Table head-->
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
+                                {{-- <th class="w-10px pe-2">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_orders .form-check-input" value="1" />
                                     </div>
-                                </th>
-                                <th class="min-w-125px">User</th>
-                                <th class="min-w-125px">Role</th>
-                                <th class="min-w-125px">Last login</th>
-                                <th class="min-w-125px">Joined Date</th>
-                                <th class="text-end min-w-100px">Actions</th>
+                                </th> --}}
+                                <th class="">{{ __('ID') }}</th>
+                                <th class="">{{ __('Picture') }}</th>
+                                <th class="">{{ __('Supplier') }}</th>
+                                <th class="">{{ __('Description') }}</th>
+                                <th class="">{{ __('Date') }}</th>
+                                <th class="">{{ __('Last Updated') }}</th>
+                                <th class="">{{ __('Garage') }}</th>
+                                <th class="">{{ __('Quantity') }}</th>
+                                <th class="text-end">{{ __('Actions') }}</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -273,49 +277,118 @@
                         <!--begin::Table body-->
                         <tbody class="text-gray-600 fw-bold">
 
-                            @foreach($users as $user)    
+                            @foreach($parts as $part)  
 
                             <!--begin::Table row-->
                             <tr>
-                                <!--begin::Checkbox-->
+
+                                <!--begin::ID-->
                                 <td>
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="1" />
-                                    </div>
-                                </td>
-                                <!--end::Checkbox-->
-                                <!--begin::User=-->
-                                <td class="d-flex align-items-center">
-                                    <!--begin::User details-->
                                     <div class="d-flex flex-column">
-                                        <a href="{{ url('/management/users/'.$user->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $user->name . " " . $user->last_name }}</a>
-                                        <span>{{ $user->email }}</span>
+                                        <a href="{{ url('/work/parts/'.$part->id) }}" class="text-gray-800 text-hover-primary mb-1">{{ $part->id }}</a>
                                     </div>
-                                    <!--begin::User details-->
                                 </td>
-                                <!--end::User=-->
-                                <!--begin::Role=-->
+                                <!--end::ID-->
 
-                                @php $roles = $user->getRoleNames(); @endphp
+                                <!--begin::Picture=-->
+
+                                @if($part->pictures != null)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <img src="{{ url('/temporary/parts/'.$part->id.'/'.$part->getFirstPicture($part->id)) }}" class="thumbnail" style="width: 50px; height: 50px; border-radius: 3px;" alt="">
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            -
+                                        </div>
+                                    </td>
+                                @endif
+
+                                <!--end::Picture=-->
+
+                                <!--begin::Supplier=-->
+                                @if($part->supplier_id)
+
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <a href="{{ url('/management/suppliers/'.$part->getSupplierId($part->id)) }}" class="text-gray-800 text-hover-primary mb-1">{{ $part->getSupplierCompany($part->id) }}</a>
+                                        </div>
+                                    </td>
+
+                                @else
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                        -
+                                        </div>
+                                    </td>
+                                @endif
+
+                                <!--end::Supplier=-->
+
+                                <!--begin::Description=-->
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        {{ $part->description }}
+                                    </div>
+                                </td>
+
+                                <!--end::Description=-->
+
+                                <!--begin::Date=-->
+
+                                @php $created_at = Carbon\Carbon::parse($part->created_at) @endphp
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="badge badge-light fw-bolder">{{ $created_at->format('Y-m-d h:m') }}</div>
+                                    </div>
+                                </td>
+
+                                <!--end::Date=-->
+
+                                <!--begin::Last Updated=-->
+
+                                @php $updated_at = Carbon\Carbon::parse($part->updated_at) @endphp
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="badge badge-light fw-bolder">{{ $updated_at->format('Y-m-d h:m') }}</div>
+                                    </div>
+                                </td>
+
+                                <!--end::Last Updated=-->
+
+                                <!--begin::Garage=-->
+
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        {{ $part->garage_location }}
+                                    </div>
+                                </td>
+
+                                <!--end::Garage=-->
+
+                                <!--begin::Quantity=-->
                                 
-                                <td>
-                                    @foreach ($roles as $r)
-                                        {{ $r }}
-                                    @endforeach
-                                </td>
+                                @if($part->qty)
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            {{ $part->qty }}
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            -
+                                        </div>
+                                    </td>
+                                @endif
 
-                                <!--end::Role=-->
-                                <!--begin::Last login=-->
-                                <td>
-                                    <div class="badge badge-light fw-bolder">{{ $user->last_login }}</div>
-                                </td>
-                                <!--end::Last login=-->
-                                <!--begin::Joined-->
+                                <!--end::Quantity=-->
 
-                                @php $createdAt = Carbon\Carbon::parse($user->created_at) @endphp
-
-                                <td>{{ $createdAt->format('Y-m-d') }}</td>
-                                <!--begin::Joined-->
                                 <!--begin::Action=-->
                                 <td class="text-end">
                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">{{ __('Actions') }}
@@ -329,16 +402,23 @@
                                     <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                         <!--begin::Menu item-->
-                                        @canany(['users.management.edit', 'everything'])
+                                        @canany(['parts.garage.view', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/users/edit/'.$user->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                                <a href="{{ url('/work/parts/'.$part->id) }}" class="menu-link px-3">{{ __('View') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
-                                        @canany(['users.management.delete', 'everything'])
+                                        @canany(['parts.garage.edit', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/users/pre-delete/'.$user->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
+                                                <a href="{{ url('/work/parts/edit/'.$part->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                            </div>
+                                        @endcanany
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        @canany(['parts.garage.delete', 'everything'])
+                                            <div class="menu-item px-3">
+                                                <a href="{{ url('/work/parts/pre-delete/'.$part->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
@@ -404,21 +484,24 @@
             });
 
             // add active classes to sidebar (current page)
-            $('.menu-users-accordion').addClass('hover show');
-            $('.menu-users-list').addClass('show');
+            $('.menu-parts-accordion').addClass('hover show');
+            $('.menu-parts-inventory-list').addClass('show');
 
             // instance of datatables, users list table
-            var table = $('#kt_table_users').DataTable({
+            var table = $('#kt_table_parts_orders').DataTable({
                 info: !1,
-                "order": [[ 4, "desc" ]],
+                "order": [[ 0, "asc" ]],
                 colReorder: true,
                 stateSave: true,
+                "stateSaveParams": function (settings, data) {
+                    data.search.search = "";
+                },
                 pageLength: 10,
                 lengthChange: !1,
-                columnDefs: [
-                    { orderable: !1, targets: 0 },
-                    { orderable: !1, targets: 5 },
-                ],
+                // columnDefs: [
+                //     { orderable: !1, targets: 0 },
+                //     { orderable: !0, targets: 2 },
+                // ],
             });
 
             // adjust our own input for datatables search function

@@ -420,7 +420,7 @@ License: For each use you must have a valid license purchased only from above li
 											</a>
 										</div>
 										@canany(['roles.management.access', 'everything'])
-										<div class="menu-item">
+										<div class="menu-item menu-roles-list">
 											<a class="menu-link" href="{{ url('/management/roles') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -430,7 +430,7 @@ License: For each use you must have a valid license purchased only from above li
 										</div>
 										@endcanany
 										@canany(['permissions.management.access', 'everything'])
-										<div class="menu-item">
+										<div class="menu-item menu-permissions-list">
 											<a class="menu-link" href="{{ url('/management/permissions') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -445,7 +445,7 @@ License: For each use you must have a valid license purchased only from above li
 								
 								@canany(['suppliers.management.access', 'everything'])
 								<a href="{{ url('/management/suppliers') }}">
-									<div class="menu-item mb-1">
+									<div class="menu-item menu-suppliers-list">
 										<span class="menu-link">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/electronics/elc002.svg-->
@@ -465,8 +465,8 @@ License: For each use you must have a valid license purchased only from above li
 								@endcanany
 
 								@canany(['customers.access', 'everything'])
-								<a href="{{ url('/customers') }}">
-									<div class="menu-item mb-1">
+								<a href="{{ url('/management/customers') }}">
+									<div class="menu-item mb-1 menu-customers-list">
 										<span class="menu-link">
 											<span class="menu-icon">
 												<!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
@@ -491,7 +491,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								
 								@canany(['orders.access', 'everything'])
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion menu-orders-accordion">
 									{{-- this icon stays as work orders --}}
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -508,7 +508,7 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
-										<div class="menu-item">
+										<div class="menu-item menu-orders-list">
 											<a class="menu-link" href="{{ url('/work/orders') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -521,7 +521,7 @@ License: For each use you must have a valid license purchased only from above li
 								@endcanany
 
 								@canany(['equipment.access', 'everything'])
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion menu-equipment-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/abstract/abs042.svg-->
@@ -537,7 +537,7 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
-										<div class="menu-item">
+										<div class="menu-item menu-equipment-orders-list">
 											<a class="menu-link" href="{{ url('/work/orders-index/equipment') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -547,7 +547,7 @@ License: For each use you must have a valid license purchased only from above li
 										</div>
 									</div>
 									<div class="menu-sub menu-sub-accordion">
-										<div class="menu-item">
+										<div class="menu-item menu-equipment-inventory-list">
 											<a class="menu-link" href="{{ url('/work/equipment') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -560,25 +560,27 @@ License: For each use you must have a valid license purchased only from above li
 								@endcanany
 
 								@canany(['vehicles.access', 'everything'])
-								<div class="menu-item mb-1">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/graphs/gra006.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M13 5.91517C15.8 6.41517 18 8.81519 18 11.8152C18 12.5152 17.9 13.2152 17.6 13.9152L20.1 15.3152C20.6 15.6152 21.4 15.4152 21.6 14.8152C21.9 13.9152 22.1 12.9152 22.1 11.8152C22.1 7.01519 18.8 3.11521 14.3 2.01521C13.7 1.91521 13.1 2.31521 13.1 3.01521V5.91517H13Z" fill="black" />
-													<path opacity="0.3" d="M19.1 17.0152C19.7 17.3152 19.8 18.1152 19.3 18.5152C17.5 20.5152 14.9 21.7152 12 21.7152C9.1 21.7152 6.50001 20.5152 4.70001 18.5152C4.30001 18.0152 4.39999 17.3152 4.89999 17.0152L7.39999 15.6152C8.49999 16.9152 10.2 17.8152 12 17.8152C13.8 17.8152 15.5 17.0152 16.6 15.6152L19.1 17.0152ZM6.39999 13.9151C6.19999 13.2151 6 12.5152 6 11.8152C6 8.81517 8.2 6.41515 11 5.91515V3.01519C11 2.41519 10.4 1.91519 9.79999 2.01519C5.29999 3.01519 2 7.01517 2 11.8152C2 12.8152 2.2 13.8152 2.5 14.8152C2.7 15.4152 3.4 15.7152 4 15.3152L6.39999 13.9151Z" fill="black" />
-												</svg>
+								<a href="{{ url('/work/vehicles') }}">
+									<div class="menu-item menu-vehicles-list">
+										<span class="menu-link">
+											<span class="menu-icon">
+												<!--begin::Svg Icon | path: icons/duotune/graphs/gra006.svg-->
+												<span class="svg-icon svg-icon-2">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+														<path d="M13 5.91517C15.8 6.41517 18 8.81519 18 11.8152C18 12.5152 17.9 13.2152 17.6 13.9152L20.1 15.3152C20.6 15.6152 21.4 15.4152 21.6 14.8152C21.9 13.9152 22.1 12.9152 22.1 11.8152C22.1 7.01519 18.8 3.11521 14.3 2.01521C13.7 1.91521 13.1 2.31521 13.1 3.01521V5.91517H13Z" fill="black" />
+														<path opacity="0.3" d="M19.1 17.0152C19.7 17.3152 19.8 18.1152 19.3 18.5152C17.5 20.5152 14.9 21.7152 12 21.7152C9.1 21.7152 6.50001 20.5152 4.70001 18.5152C4.30001 18.0152 4.39999 17.3152 4.89999 17.0152L7.39999 15.6152C8.49999 16.9152 10.2 17.8152 12 17.8152C13.8 17.8152 15.5 17.0152 16.6 15.6152L19.1 17.0152ZM6.39999 13.9151C6.19999 13.2151 6 12.5152 6 11.8152C6 8.81517 8.2 6.41515 11 5.91515V3.01519C11 2.41519 10.4 1.91519 9.79999 2.01519C5.29999 3.01519 2 7.01517 2 11.8152C2 12.8152 2.2 13.8152 2.5 14.8152C2.7 15.4152 3.4 15.7152 4 15.3152L6.39999 13.9151Z" fill="black" />
+													</svg>
+												</span>
+												<!--end::Svg Icon-->
 											</span>
-											<!--end::Svg Icon-->
+											<span class="menu-title">{{ __('Vehicles') }}</span>
 										</span>
-										<span class="menu-title">{{ __('Vehicles') }}</span>
-									</span>
-								</div>
+									</div>
+								</a>
 								@endcanany
 
 								@canany(['parts.access', 'everything'])
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1 menu-parts-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen009.svg-->
@@ -594,7 +596,7 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
-										<div class="menu-item">
+										<div class="menu-item menu-parts-orders-list">
 											<a class="menu-link" href="{{ url('/work/parts') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -602,7 +604,7 @@ License: For each use you must have a valid license purchased only from above li
 												<span class="menu-title">{{ __('Orders') }}</span>
 											</a>
 										</div>
-										<div class="menu-item">
+										<div class="menu-item menu-parts-inventory-list">
 											<a class="menu-link" href="{{ url('/work/parts/garage') }}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>

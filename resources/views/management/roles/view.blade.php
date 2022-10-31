@@ -1,20 +1,20 @@
 @extends('home')
 
-<title>{{ __('Garage | Viewing Equipment Order') }} {{ $equipment->order_id }}</title>
+<title>{{ __('Garage | Viewing Role') }} {{ $role->name }}</title>
 
 @section('toolbar-content')
 
     @section('breadcrumbs')
-        {{ __('Equipment') }}
+        {{ __('Roles') }}
     @endsection
 
     @section('description')
-        {{ __('Order') }} {{ __('ID') }} {{ $equipment->order_id }}
+        {{ $role->name }}
     @endsection
 
     @section('back-button')
         <div class="m-0">
-            <a href="{{ url()->previous() }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
+            <a href="{{ url('/management/roles') }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
             <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/Navigation/Angle-double-left.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <polygon points="0 0 24 0 24 24 0 24"/>
@@ -27,7 +27,7 @@
     @endsection
 
     @section('create-button')
-        <a href="{{ url('/work/order/equipment/edit/'.$equipment->order_id) }}" class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
+        <a href="{{ url('/management/roles/create') }}" class="btn btn-sm btn-primary">{{ __('Create') }}</a>
     @endsection
 
 @endsection
@@ -128,7 +128,7 @@
                 <div class="card-header">
                     <!--begin::Card title-->
                     <div class="card-title">
-                        <h2 class="mb-0 pt-4">{{ __('General') }}</h2>
+                        <h2 class="mb-0">{{ $role->name }}</h2>
                     </div>
                     <!--end::Card title-->
                 </div>
@@ -137,148 +137,25 @@
                 <div class="card-body pt-0">
                     <!--begin::Permissions-->
                     <div class="d-flex flex-column text-gray-600">
-
                         <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Order ID') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $equipment->order_id }}</div></b></div>
-
-                        @php $created_at = Carbon\Carbon::parse($equipment->created_at); @endphp
+                        <span class="bullet bg-primary me-3"></span>{{ __('ID') }}: <b class="px-2">{{ $role->id }}</b></div>
                         <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Creation Date') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $created_at->format('Y-m-d H:m') }}</div></b></div>
-                            
-                        @php $updated_at = Carbon\Carbon::parse($equipment->updated_at); @endphp
+                            @php $created_at = Carbon\Carbon::parse($role->created_at); @endphp
+                        <span class="bullet bg-primary me-3"></span>{{ __('Creation Date') }}: <b class="px-2">{{ $created_at->format('Y-m-d') }}</b></div>
                         <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Last Updated') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $updated_at->format('Y-m-d H:m') }}</div></b></div>
-                    
+                        <span class="bullet bg-primary me-3"></span>{{ __('Description') }}: <b class="px-2">{{ $role->description }}</b></div>
                     </div>
                     <!--end::Permissions-->
                 </div>
                 <!--end::Card body-->
                 <!--begin::Card footer-->
+                <div class="card-footer pt-0">
+                    <a href="{{ url('/management/roles/edit/'.$role->id) }}" class="btn btn-light btn-active-primary" style="float:right;">{{ __('Edit Role') }}</a>
+                </div>
                 <!--end::Card footer-->
             </div>
             <!--end::Card-->
-            
-        </div>
-        <!--end::Layout-->
-
-        <!--begin::Layout-->
-        <div class="d-flex flex-column flex-lg-row pt-8">
            
-            <!--begin::Card-->
-            <div class="card card-flush col-md-12">
-                <!--begin::Card header-->
-                <div class="card-header">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2 class="mb-0 pt-4">{{ __('Supplier') }}</h2>
-                    </div>
-                    <!--end::Card title-->
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <!--begin::Permissions-->
-                    <div class="d-flex flex-column text-gray-600">
-
-                        <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>
-                            {{ __('ID') }}: 
-                            <b class="px-2">
-                                <div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">
-                                    <a href="{{ url('/management/suppliers/'.$supplier->id) }}">{{ $supplier->id }}</a>
-                                </div>
-                            </b>
-                        </div>
-
-                        <div class="d-flex align-items-center py-2">
-                            <span class="bullet bg-primary me-3"></span>
-                            {{ __('Company') }}: 
-                            <b class="px-2">
-                                <div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">
-                                    <a href="{{ url('/management/suppliers/'.$supplier->id) }}">{{ $supplier->supplier_company }}</a>
-                                </div>
-                            </b>
-                        </div>
-                            
-                        <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Name') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $supplier->supplier_name }}</div></b></div>
-
-                        <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Email') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $supplier->supplier_email }}</div></b></div>
-
-                        <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{{ __('Phone') }}: <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ $supplier->supplier_telephone }}</div></b></div>
-                    
-                    </div>
-                    <!--end::Permissions-->
-                </div>
-                <!--end::Card body-->
-                <!--begin::Card footer-->
-                <!--end::Card footer-->
-            </div>
-            <!--end::Card-->
-            
-        </div>
-        <!--end::Layout-->
-
-        <!--begin::Layout-->
-        <div class="d-flex flex-column flex-lg-row pt-8">
-           
-            <!--begin::Card-->
-            <div class="card card-flush col-md-12">
-                <!--begin::Card header-->
-                <div class="card-header">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2 class="mb-0 pt-4">{{ __('Order Contains') }}</h2>
-                    </div>
-                    <!--end::Card title-->
-                </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <!--begin::Permissions-->
-                    <div class="d-flex flex-column text-gray-600">
-
-                        <div class="py-4 pb-1">
-                            <div class="table-responsive">
-                                <table class="table table-row-dashed table-row-gray-300 gy-7">
-                                    <thead>
-                                        <tr class="fw-bolder fs-6 text-gray-800">
-                                            <th>{{ __('ID') }}</th>
-                                            <th>{{ __('Code') }}</th>
-                                            <th>{{ __('Bar Code') }}</th>
-                                            <th>{{ __('Description') }}</th>
-                                            <th>{{ __('Quantity') }}</th>
-                                            <th>{{ __('Unit Cost') }}</th>
-                                            <th>{{ __('Instructions') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-gray-700">
-                                        @foreach($order_items as $item)
-                                            <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->code }}</td>
-                                                <td>{{ $item->bar_code }}</td>
-                                                <td>{{ $item->description }}</td>
-                                                <td>{{ $item->quantity }}</td>
-                                                <td>{{ __('$') }} {{ $item->price }}</td>
-                                                <td>{{ $item->instructions }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end::Permissions-->
-                </div>
-                <!--end::Card body-->
-                <!--begin::Card footer-->
-                <!--end::Card footer-->
-            </div>
-            <!--end::Card-->
-            
         </div>
         <!--end::Layout-->
 
@@ -302,8 +179,8 @@
         });
 
         // add active classes to sidebar (current page)
-        $('.menu-equipment-accordion').addClass('hover show');
-        $('.menu-equipment-orders-list').addClass('show');
+        $('.menu-users-accordion').addClass('hover show');
+        $('.menu-roles-list').addClass('show');
 
 
     });

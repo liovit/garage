@@ -35,8 +35,8 @@ class PartsController extends Controller
         $user = Auth::user();
 
         if($user->hasAnyPermission(['parts.access', 'everything'])) {
-            $parts = Part_Order::all();
-            return view('parts.index', compact('parts', 'user'));
+            $parts_orders = Part_Order::all();
+            return view('parts.orders.index', compact('parts_orders', 'user'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -48,7 +48,7 @@ class PartsController extends Controller
 
         if($user->hasAnyPermission(['parts.garage.access', 'everything'])) {
             $parts = Part::all();
-            return view('parts.garage_index', compact('parts', 'user'));
+            return view('parts.inventory.index', compact('parts', 'user'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -65,7 +65,7 @@ class PartsController extends Controller
         $user = Auth::user();
 
         if($user->hasAnyPermission(['parts.create', 'everything'])) {
-            return view('parts.create');
+            return view('parts.inventory.create');
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -78,7 +78,7 @@ class PartsController extends Controller
 
         if($user->hasAnyPermission(['parts.create', 'everything'])) {
             $suppliers = Supplier::all();
-            return view('parts.order', compact('suppliers'));
+            return view('parts.orders.create', compact('suppliers'));
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
@@ -298,7 +298,7 @@ class PartsController extends Controller
 
             $part = Part::find($id);
             $supplier = Supplier::find($part->supplier_id);
-            return view('parts.garage_view', compact('part', 'supplier'));
+            return view('parts.inventory.view', compact('part', 'supplier'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
@@ -314,7 +314,7 @@ class PartsController extends Controller
             $part = Part_Order::where('order_id', '=', $id)->first();
             $supplier = Supplier::find($part->supplier_id);
             $parts = Part_Order::where('order_id', '=', $id)->get();
-            return view('parts.view', compact('part', 'supplier', 'parts'));
+            return view('parts.orders.view', compact('part', 'supplier', 'parts'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
@@ -339,14 +339,14 @@ class PartsController extends Controller
                 $part = Part::find($id);
                 $suppliers = Supplier::all();
                 $supplier = Supplier::find($part->supplier_id);
-                return view('parts.garage_edit', compact('part', 'suppliers', 'supplier'));
+                return view('parts.inventory.edit', compact('part', 'suppliers', 'supplier'));
 
             } else {
 
                 $part = Part_Order::where('order_id', '=', $id)->first();
                 $suppliers = Supplier::all();
                 $parts = Part_Order::where('order_id', '=', $id)->get();
-                return view('parts.edit', compact('part', 'suppliers', 'parts'));
+                return view('parts.orders.edit', compact('part', 'suppliers', 'parts'));
 
             }
 
@@ -710,7 +710,7 @@ class PartsController extends Controller
 
             $p = Part::find($id);
             $supplier = Supplier::find($p->supplier_id);
-            return view('parts.garage_pre_delete', compact('p', 'supplier'));
+            return view('parts.inventory.delete', compact('p', 'supplier'));
 
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
@@ -727,7 +727,7 @@ class PartsController extends Controller
             $part = Part_Order::where('order_id', '=', $id)->first();
             $supplier = Supplier::find($part->supplier_id);
             $parts = Part_Order::where('order_id', '=', $id)->get();
-            return view('parts.pre_delete', compact('part', 'supplier', 'parts'));
+            return view('parts.orders.delete', compact('part', 'supplier', 'parts'));
         
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
