@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     // customer routes
     Route::get('/management/customers', [App\Http\Controllers\CustomersController::class, 'index']);
     Route::get('/management/customers/create', [App\Http\Controllers\CustomersController::class, 'create']);
-    Route::post('/management/customers/post', [App\Http\Controllers\CustomersController::class, 'post']);
+    Route::post('/management/customers/store', [App\Http\Controllers\CustomersController::class, 'store']);
     Route::get('/management/customers/edit/{id}', [App\Http\Controllers\CustomersController::class, 'edit']);
     Route::post('/management/customers/update/{id}', [App\Http\Controllers\CustomersController::class, 'update']);
     Route::get('/management/customers/{id}', [App\Http\Controllers\CustomersController::class, 'show']);
@@ -151,6 +151,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/work/remove-job/{id}', [App\Http\Controllers\OrdersController::class, 'remove_job']);
     Route::post('/work/add-part/{id}', [App\Http\Controllers\OrdersController::class, 'add_part']);
     Route::post('/work/remove-part/{id}', [App\Http\Controllers\OrdersController::class, 'remove_part']);
+    Route::post('/work/add-task/{id}', [App\Http\Controllers\OrdersController::class, 'add_task']);
+    Route::post('/work/remove-task/{id}', [App\Http\Controllers\OrdersController::class, 'remove_task']);
 
     // work vehicles routes
     Route::get('/work/vehicles', [App\Http\Controllers\VehiclesController::class, 'index']);

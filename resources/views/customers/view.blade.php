@@ -368,66 +368,42 @@
                                     <!--begin::Body-->
                                     <div id="kt_customer_view_payment_method_1" class="collapse show fs-6 ps-10" data-bs-parent="#kt_customer_view_payment_method">
                                         <!--begin::Details-->
-                                        <div class="d-flex flex-wrap py-5">
+                                        <div class="d-flex flex-wrap py-5 pt-2">
                                             <div class="flex-equal me-5">
                                                 <div class="row">
 
-                                                    <div class="col-xl-4 col-lg-12">
-                                                        <div class="text-gray-900 mb-2" style="font-weight: 500;">{{ __('Credit Customer') }}</div>
-                                                        <div class="form-check">
-                                                            @if($customer->credit_customer == "yes")
-                                                                <input class="form-check-input" type="checkbox" name="credit_customer" value="yes" id="flexCheckDefault" checked disabled>
-                                                            @else
-                                                                <input class="form-check-input" type="checkbox" name="credit_customer" value="yes" id="flexCheckDefault" disabled>
-                                                            @endif
-                                                            <label class="form-check-label" for="flexCheckDefault" style="padding-top: 4px;">{{ __('Yes') }}</label>
-                                                        </div>
-                                                    </div>
+                                                    @if($customer->credit_customer == "yes")
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This is a credit customer.') }}</div></b></div>
+                                                    @else
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This is not a credit customer.') }}</div></b></div>
+                                                    @endif
+                                                    
+                                                    @if($customer->customer_type == 0)
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This customer is a commercial type.') }}</div></b></div>
+                                                    @endif
 
-                                                    <div class="col-xl-4 col-lg-12">
-                                                        <div class="text-gray-900 mb-2" style="font-weight: 500;">{{ __('Customer Type') }}</div>
+                                                    @if($customer->customer_type == 1)
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This customer is a private type.') }}</div></b></div>
+                                                    @endif
 
-                                                        <div class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="radio" name="customer_type" value="0" id="flexRadioChecked" @if($customer->customer_type == 0) checked @endif disabled />
-                                                            <label class="form-check-label" for="flexRadioChecked">
-                                                                {{ __('Commercial') }}
-                                                            </label>
-                                                        </div>
+                                                    @if($customer->contact_preference == 0)
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This customer prefers to be contacted via phone.') }}</div></b></div>
+                                                    @endif
 
-                                                        <div class="form-check form-check-custom form-check-solid mt-2">
-                                                            <input class="form-check-input" type="radio" name="customer_type" value="1" id="flexRadioChecked" @if($customer->customer_type == 1) checked @endif disabled />
-                                                            <label class="form-check-label" for="flexRadioChecked">
-                                                                {{ __('Private') }}
-                                                            </label>
-                                                        </div>
-                                                        
-                                                    </div>
+                                                    @if($customer->contact_preference == 1)
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This customer prefers to be contacted via fax.') }}</div></b></div>
+                                                    @endif
 
-                                                    <div class="col-xl-4 col-lg-12">
-                                                        <div class="text-gray-900 mb-2" style="font-weight: 500;">{{ __('Contact Via') }}</div>
-
-                                                        <div class="form-check form-check-custom form-check-solid">
-                                                            <input class="form-check-input" type="radio" name="contact_preference" value="0" id="flexRadioChecked2" @if($customer->contact_preference == 0) checked @endif disabled />
-                                                            <label class="form-check-label" for="flexRadioChecked">
-                                                                {{ __('Phone') }}
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-custom form-check-solid mt-2">
-                                                            <input class="form-check-input" type="radio" name="contact_preference" value="1" id="flexRadioChecked2" @if($customer->contact_preference == 1) checked @endif disabled />
-                                                            <label class="form-check-label" for="flexRadioChecked">
-                                                                {{ __('Fax') }}
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form-check form-check-custom form-check-solid mt-2">
-                                                            <input class="form-check-input" type="radio" name="contact_preference" value="2" id="flexRadioChecked2" @if($customer->contact_preference == 2) checked @endif disabled />
-                                                            <label class="form-check-label" for="flexRadioChecked">
-                                                                {{ __('Email') }}
-                                                            </label>
-                                                        </div>
-                                                        
-                                                    </div>
+                                                    @if($customer->contact_preference == 2)
+                                                        <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span><b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('This customer prefers to be contacted via email.') }}</div></b></div>
+                                                    @endif
 
                                                 </div>
                                             </div>
@@ -441,6 +417,8 @@
                             <!--end::Card body-->
                         </div>
 						<!--end::Card-->
+
+                        @if($customer->comments_instructions)
                         <!--begin::Card-->
                         <div class="card pt-4 mb-6 mb-xl-9">
                             <!--begin::Card header-->
@@ -460,20 +438,42 @@
                                     <!--begin::Body-->
                                     <div id="kt_customer_view_payment_method_1" class="collapse show fs-6 ps-10" data-bs-parent="#kt_customer_view_payment_method">
                                         <!--begin::Details-->
-                                        <div class="d-flex flex-wrap py-5">
+                                        <div class="d-flex flex-wrap py-5 pt-2">
                                             <!--begin::Col-->
                                             <div class="flex-equal me-5">
-                                                <label for="exampleFormControlInput1" class="form-label">Language</label>
-                                                <select class="form-select" name="comments_language" aria-label="Select example" disabled>
-                                                    <option>Language</option>
-                                                    <option value="1" @if($customer->comments_language == 1) selected @endif>{{ __('English') }}</option>
-                                                    <option value="2" @if($customer->comments_language == 2) selected @endif>{{ __('Lithuanian') }}</option>
-                                                </select>
 
-                                                <div class="form-group mt-3">
-                                                    <label for="" class="form-label">Instructions</label>
-                                                    <textarea name="comments_instructions" class="form-control" id="" cols="30" rows="10" disabled>{{ $customer->comments_instructions }}</textarea>
+                                                @if($customer->comments_language == 1)
+                                                    <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span>
+                                                        <b class="px-2">
+                                                            <div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">
+                                                                {{ __('Comments language is set to English.') }}
+                                                            </div>
+                                                        </b>
+                                                    </div>
+                                                @endif
+
+                                                @if($customer->comments_language == 2)
+                                                    <div class="d-flex align-items-center py-2">
+                                                        <span class="bullet bg-primary me-3"></span>
+                                                        <b class="px-2">
+                                                            <div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">
+                                                                {{ __('Comments language is set to Lithuanian.') }}
+                                                            </div>
+                                                        </b>
+                                                    </div>
+                                                @endif
+
+                                                <div class="d-flex align-items-center py-2">
+                                                    <span class="bullet bg-primary me-3"></span>
+                                                    <b class="px-2">
+                                                        <div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">
+                                                            {{ __('Instructions') }}:
+                                                        </div>
+                                                    </b>
                                                 </div>
+
+                                                <div class="mt-4 badge badge-light fw-bolder" style="font-size: 1rem;">{{ $customer->comments_instructions }}</div>
 
                                             </div>
                                             <!--end::Col-->
@@ -486,6 +486,8 @@
                             </div>
                             <!--end::Card body-->
                         </div>
+                        @endif
+
                     </div>
                     <!--end:::Tab pane-->
                     <!--end:::Begin pane-->

@@ -271,6 +271,8 @@
             <!--end::Layout-->
         @endif
 
+        <div class="mt-8"></div>
+
     </div>
 </div>
 @endsection

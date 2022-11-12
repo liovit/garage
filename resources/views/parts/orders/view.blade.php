@@ -222,7 +222,7 @@
         <!--end::Layout-->
 
         <!--begin::Layout-->
-        <div class="d-flex flex-column flex-lg-row pt-8">
+        <div class="d-flex flex-column flex-lg-row pt-8 pb-8">
         
             <!--begin::Card-->
             <div class="card card-flush col-md-12">
@@ -253,6 +253,7 @@
                                             <th>{{ __('Quantity') }}</th>
                                             <th>{{ __('Unit Cost') }}</th>
                                             <th>{{ __('Total Cost') }}</th>
+                                            <th>{{ __('Status') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -268,7 +269,24 @@
                                                 <td>{{ $item->order_qty }}</td>
                                                 <td>{{ __('$') }} {{ $item->unit_cost }}</td>
                                                 <td>{{ __('$') }} {{ $total_cost }}</td>
-                                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_{{ $item->id }}">
+                                                <td>
+                                                    @if($item->status == 1)
+                                                        <b class="px-2"><div class="badge badge-light fw-bolder" style="font-size: 0.95rem;">{{ __('Created') }}</div></b>
+                                                    @endif
+                                                    @if($item->status == 2)
+                                                        <b class="px-2"><div class="badge badge-success fw-bolder" style="font-size: 0.95rem;">{{ __('Received') }}</div></b>
+                                                    @endif
+                                                    @if($item->status == 3)
+                                                        <b class="px-2"><div class="badge badge-warning fw-bolder" style="font-size: 0.95rem;">{{ __('Processing') }}</div></b>
+                                                    @endif
+                                                    @if($item->status == 4)
+                                                        <b class="px-2"><div class="badge badge-primary fw-bolder" style="font-size: 0.95rem;">{{ __('Return') }}</div></b>
+                                                    @endif
+                                                    @if($item->status == 5)
+                                                        <b class="px-2"><div class="badge badge-success fw-bolder" style="font-size: 0.95rem;">{{ __('Returned') }}</div></b>
+                                                    @endif
+                                                </td>
+                                                <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_{{ $item->id }}">
                                                     {{ __('More Details') }}
                                                 </button></td>
                                             </tr>

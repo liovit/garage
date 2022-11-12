@@ -1,849 +1,989 @@
 @extends('home')
 
-@section('content-f')
-    <div class="breadcrumb-box">
-        Work Related <i class="ml-4 arrow-style fas fa-chevron-right"></i> <i class="arrow-style fas fa-chevron-right mr-4"></i> <a href="{{ url('/work/orders') }}" class="breadcrumb-style">Orders</a> 
-        <i class="ml-4 arrow-style fas fa-chevron-right"></i> <i class="arrow-style fas fa-chevron-right mr-4"></i> <a href="{{ url('/work/orders/create/'.$order->id) }}" class="breadcrumb-style">Create new order</a>
-    </div>
+<title>{{ __('Garage | Create New Order') }}</title>
+
+@section('toolbar-content')
+
+    @section('breadcrumbs')
+        {{ __('Orders') }}
+    @endsection
+
+    @section('description')
+        {{ __('Create New Work Order') }}
+    @endsection
+
+    @section('back-button')
+        <div class="m-0">
+            {{-- <a href="{{ url()->previous() }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"> --}}
+            <a href="{{ url('/work/orders') }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
+            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/Navigation/Angle-double-left.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <polygon points="0 0 24 0 24 24 0 24"/>
+                    <path d="M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z" fill="#000000" fill-rule="nonzero" transform="translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999) "/>
+                    <path d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) "/>
+                </g>
+            </svg></span>
+            {{ __('Back') }}</a>
+        </div>
+    @endsection
+
+    @section('create-button')
+        <a href="{{ request()->fullUrl() }}" class="btn btn-sm btn-primary">
+            <span class="svg-icon svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/General/Update.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"/>
+                    <path d="M8.43296491,7.17429118 L9.40782327,7.85689436 C9.49616631,7.91875282 9.56214077,8.00751728 9.5959027,8.10994332 C9.68235021,8.37220548 9.53982427,8.65489052 9.27756211,8.74133803 L5.89079566,9.85769242 C5.84469033,9.87288977 5.79661753,9.8812917 5.74809064,9.88263369 C5.4720538,9.8902674 5.24209339,9.67268366 5.23445968,9.39664682 L5.13610134,5.83998177 C5.13313425,5.73269078 5.16477113,5.62729274 5.22633424,5.53937151 C5.384723,5.31316892 5.69649589,5.25819495 5.92269848,5.4165837 L6.72910242,5.98123382 C8.16546398,4.72182424 10.0239806,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 C7.581722,20 4,16.418278 4,12 L6,12 C6,15.3137085 8.6862915,18 12,18 C15.3137085,18 18,15.3137085 18,12 C18,8.6862915 15.3137085,6 12,6 C10.6885336,6 9.44767246,6.42282109 8.43296491,7.17429118 Z" fill="#000000" fill-rule="nonzero"/>
+                </g>
+            </svg><!--end::Svg Icon--></span>
+        {{ __('Refresh') }}</a>
+    @endsection
+
 @endsection
 
-@section('content-d')
+@section('container-content')
 
-    <div style="margin-top: 20px;"></div>
+    <div style="margin-top: 30px;"></div>
 
-    <div class="row pl-13 col-md-12 content-row">
-        @if(Session::has('success'))
-            <div class="alert alert-info text-center">{{ Session::get('success') }}</div>
-        @endif
-        @if(Session::has('error'))
-            <div class="alert alert-danger text-center">{{ Session::get('error') }}</div>
-        @endif
-    </div>
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl pb-8">
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            @if (Session::has('success'))
+            <!--begin::Alert-->
+            <div class="alert alert-dismissible bg-light-success d-flex flex-column flex-sm-row p-5 mb-10">
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2hx svg-icon-success me-4 mb-5 mb-sm-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                        <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+                    </svg>
+                </span>
+                <!--end::Icon-->
 
-    <div class="row">
-        {{-- pl-13 pr-27 content-row  --}}
-        <div class="col-md-12 pl-13 pr-27 content-row">
-
-            <div class="card card-custom">
-                <div class="card-header card-header-custom">
-                    Create new order
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <!--begin::Title-->
+                    <h4 class="fw-bold">{{ __('Success') }}</h4>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    <span>{{ Session::get('success') }}</span>
+                    <!--end::Content-->
                 </div>
-                <div class="card-body card-body-custom">
-                    <div class="mt-2"></div>
-                    {{-- <div class="col-md-12">
-                        <div style="text-align:center;margin-top:30px;">
-                            <span id="step-1" class="step @if($order->order_fill_status == 1) active @endif @if($order->order_fill_status == 2 || $order->order_fill_status == 3 || $order->order_fill_status == 4 || $order->order_fill_status == 5) finish @endif"></span>
-                            <span id="step-2" class="step @if($order->order_fill_status == 2) active @endif @if($order->order_fill_status == 3 || $order->order_fill_status == 4 || $order->order_fill_status == 5) finish @endif"></span>
-                            <span id="step-3" class="step @if($order->order_fill_status == 3) active @endif @if($order->order_fill_status == 4 || $order->order_fill_status == 5) finish @endif"></span>
-                            <span id="step-4" class="step @if($order->order_fill_status == 4) active @endif @if($order->order_fill_status == 5) finish @endif"></span>
-                            <span id="step-4" class="step @if($order->order_fill_status == 5) active @endif"></span>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="mt-2"></div> --}}
-                    {{-- @if($order->order_fill_status == 1) --}}
+                <!--end::Wrapper-->
 
-                    <div class="pre-form-texts">Customer information</div>
-                    
-                    <a href="{{ url('/work/orders/create-new-customer/'.$order->id) }}" class="mt-3 col-12 btn btn-sm btn-info">Add new customer</a>
-
-                    <div class="pre-form-texts mt-3 text-center">OR</div>
-
-                    <form action="{{ url('/work/orders/'.$order->id.'/store/step-one') }}" method="post" autocomplete="off">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12 form-group mt-3">
-                                <label for="">Select a customer</label>
-                                <div class="mt-2"></div>
-                                <select class="permissions-select form-control" name="customer_id">
-                                    @foreach($customers as $customer)
-                                        <option value="{{ $customer->id }}" @if($order->customer_id == $customer->id) selected @endif>{{ $customer->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        {{-- <div class="mt-3"></div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" style="float:right;" class="col-6 btn btn-primary btn-primary-second">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-                            </div>
-                        </div> --}}
-                        <div class="mt-2"></div>
-                    {{-- </form> --}}
-                    {{-- @endif --}}
-                    {{-- @if($order->order_fill_status == 2) --}}
-
-                            <div class="pre-form-texts">Vehicle information</div>
-                            <div class="row">
-                                <div class="col-md-12 form-group mt-3">
-                                    <label for="">Type</label>
-                                    <select name="type" class="form-control" id="select_type" required>
-                                        <option value="none" @if($vehicle == null) selected disabled @endif>Select type</option>
-                                        <option value="car" @if($vehicle) @if($vehicle->type == 'car') selected @endif @endif>Car</option>
-                                        <option value="truck" @if($vehicle) @if($vehicle->type == 'truck') selected @endif @endif>Truck</option>
-                                        <option value="trailer" @if($vehicle) @if($vehicle->type == 'trailer') selected @endif @endif>Trailer</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="search-input-box row form-group mt-3" style="display:none;">
-                                <div class="col-12">
-                                    <label for="">Quick search</label>
-                                    <input type="text" class="form-control search-input" placeholder="Enter vin code">
-                                </div>
-                            </div>
-
-                            <div id="search-results" class="mt-3">
-
-                            </div>
-
-                            <div class="truck-window" style="display:none;">
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">VIN</label>
-                                        <input type="text" name="vin_code" class="form-control" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
-                                    
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Model</label>
-                                        <input type="text" name="model" class="form-control" @if($vehicle) value="{{ $vehicle->model }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Make</label>
-                                        <input type="text" name="make" class="form-control" @if($vehicle) value="{{ $vehicle->make }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Engine</label>
-                                        <input type="text" name="engine" class="form-control" @if($vehicle) value="{{ $vehicle->engine }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Engine Number</label>
-                                        <input type="text" name="engine_number" class="form-control" @if($vehicle) value="{{ $vehicle->engine_number }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Gas Type</label>
-                                        <input type="text" name="gas_type" class="form-control" @if($vehicle) value="{{ $vehicle->gas_type }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Year</label>
-                                        <input type="text" name="year" class="form-control" @if($vehicle) value="{{ $vehicle->year }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Truck number (company)</label>
-                                        <input type="text" name="company_vehicle_number" class="form-control" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Number plate</label>
-                                        <input type="text" name="number_plate" class="form-control" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Color</label>
-                                        <input type="text" name="color" class="form-control" @if($vehicle) value="{{ $vehicle->color }}" @endif>
-                                    </div>
-                                    @if($vehicle)
-                                        @if($vehicle->odometer_before != null)
-                                            <div class="col-md-4 form-group mt-1">
-                                                <label for="">Odometer</label>
-                                                <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_before }}" @endif>
-                                            </div>
-                                        @else
-                                        <div class="col-md-4 form-group mt-1">
-                                            <label for="">Odometer</label>
-                                            <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_now }}" @endif>
-                                        </div>
-                                        @endif
-                                    @else
-                                        <div class="col-md-4 form-group mt-1">
-                                            <label for="">Odometer</label>
-                                            <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_noww }}" @endif>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="car-window" style="display:none;">
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">VIN</label>
-                                        <input type="text" name="vin_code" class="form-control" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Model</label>
-                                        <input type="text" name="model" class="form-control" @if($vehicle) value="{{ $vehicle->model }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Make</label>
-                                        <input type="text" name="make" class="form-control" @if($vehicle) value="{{ $vehicle->make }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Engine</label>
-                                        <input type="text" name="engine" class="form-control" @if($vehicle) value="{{ $vehicle->engine }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Engine Number</label>
-                                        <input type="text" name="engine_number" class="form-control" @if($vehicle) value="{{ $vehicle->engine_number }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Gas Type</label>
-                                        <input type="text" name="gas_type" class="form-control" @if($vehicle) value="{{ $vehicle->gas_type }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Year</label>
-                                        <input type="text" name="year" class="form-control" @if($vehicle) value="{{ $vehicle->year }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Car number (company)</label>
-                                        <input type="text" name="company_vehicle_number" class="form-control" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Number plate</label>
-                                        <input type="text" name="number_plate" class="form-control" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Color</label>
-                                        <input type="text" name="color" class="form-control" @if($vehicle) value="{{ $vehicle->color }}" @endif>
-                                    </div>
-                                    @if($vehicle)
-                                        @if($vehicle->odometer_before != null)
-                                            <div class="col-md-4 form-group mt-1">
-                                                <label for="">Odometer</label>
-                                                <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_before }}" @endif>
-                                            </div>
-                                        @else
-                                        <div class="col-md-4 form-group mt-1">
-                                            <label for="">Odometer</label>
-                                            <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_now }}" @endif>
-                                        </div>
-                                        @endif
-                                    @else
-                                        <div class="col-md-4 form-group mt-1">
-                                            <label for="">Odometer</label>
-                                            <input type="text" name="odometer_now" class="form-control" @if($vehicle) value="{{ $vehicle->odometer_now }}" @endif>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="trailer-window" style="display:none;">
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">VIN</label>
-                                        <input type="text" name="vin_code" class="form-control" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Model</label>
-                                        <input type="text" name="model" class="form-control" @if($vehicle) value="{{ $vehicle->model }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-3">
-                                        <label for="">Make</label>
-                                        <input type="text" name="make" class="form-control" @if($vehicle) value="{{ $vehicle->make }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Year</label>
-                                        <input type="text" name="year" class="form-control" @if($vehicle) value="{{ $vehicle->year }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Trailer number (company)</label>
-                                        <input type="text" name="company_vehicle_number" class="form-control" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Number plate</label>
-                                        <input type="text" name="number_plate" class="form-control" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
-                                    </div>
-                                    <div class="col-md-4 form-group mt-1">
-                                        <label for="">Color</label>
-                                        <input type="text" name="color" class="form-control" @if($vehicle) value="{{ $vehicle->color }}" @endif>
-                                    </div>
-                                </div>
-                            </div>
-
-                        <div class="mt-3"></div>
-                        {{-- <div class="row">
-                            @if($order->order_fill_status == 2)
-                                <div class="col-6 mt-1">
-                                    <a href="{{ url('/work/orders/create/'.$order->id.'/step-one') }}"><button type="button" style="float:right;" class="col-12 btn btn-primary btn-primary-second"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</button></a>
-                                </div>
-                            @endif
-                            <div class="col-6 mt-1">
-                                <button type="submit" style="float:right;" class="col-12 btn btn-primary btn-primary-second">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-                            </div>
-                        </div> --}}
-                    {{-- @endif --}}
-                    {{-- @if($order->order_fill_status == 3) --}}
-                    {{-- <form action="{{ url('/work/orders/'.$order->id.'/store/step-three') }}" method="post" autocomplete="off"> --}}
-                        {{-- @csrf --}}
-                        <div class="mt-2"></div>
-                        <div class="pre-form-texts">To do information</div>
-                        <div class="row">
-                            <div class="col-md-12 form-group mt-3">
-                                <label for="">Make a list of things that must be done</label>
-                                <button type="button" class="add-to-do btn btn-primary btn-sm">Add more</button>
-                                <div id="to_be_done_list" class="mt-3 mb-3">
-
-                                    @if($order->to_be_done)
-                                    @php $toBeDoneList = json_decode($order->to_be_done); $toDoCount = 0; @endphp
-                                        @foreach($toBeDoneList as $tbd)
-                                        @php $toDoCount++; @endphp
-                                        <div class="row appended-to-do-row{{ $toDoCount }}">
-                                            <div class="col-10">
-                                                <input type="text" name="to_be_done[]" value="{{ $tbd->value }}" class="form-control mt-1" required>
-                                            </div>
-                                            {{-- <div class="col-3 mt-1">
-                                                <select name="mechanics[]" id="" class="form-control" required>
-                                                    @if($tbd->mechanic == null)
-                                                        <option value="" selected="selected" disabled>Select a mechanic</option>
-                                                    @endif
-                                                    @foreach($mechanics as $mechanic)
-                                                        @if($mechanic->hasRole('Mechanic'))
-                                                            <option value="{{ $mechanic->id }}" @if($tbd->mechanic == $mechanic->id) selected @endif>{{ $mechanic->name . " " . $mechanic->last_name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div> --}}
-                                            <div class="col-2">
-                                                <button type="button" class="btn btn-primary btn-sm mt-1 remove-to-do" style="float:right;" data-idt="{{ $toDoCount }}">Remove</button>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    @else 
-                                        <div class="row appended-to-do-row19999">
-                                            <div class="col-10">
-                                                <input type="text" name="to_be_done[]" class="form-control mt-1" required>
-                                            </div>
-                                            {{-- <div class="col-3 mt-1">
-                                                <select name="mechanics[]" id="" class="form-control" required>
-                                                    @if($order->to_be_done == null)
-                                                        <option value="" selected="selected" disabled>Select a mechanic</option>
-                                                    @endif
-                                                    @foreach($mechanics as $mechanic)
-                                                        @if($mechanic->hasRole('Mechanic'))
-                                                            <option value="{{ $mechanic->id }}">{{ $mechanic->name . " " . $mechanic->last_name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div> --}}
-                                            <div class="col-2">
-                                                {{-- <button type="button" class="btn btn-primary btn-sm mt-1 remove-to-do" style="float:right;" data-idt="19999">Remove</button> --}}
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="mt-3"></div>
-                        <div class="row">
-                            @if($order->order_fill_status == 3)
-                                <div class="col-6">
-                                    <a href="{{ url('/work/orders/create/'.$order->id.'/step-two') }}"><button type="button" style="float:right;" class="col-12 btn btn-primary btn-primary-second"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</button></a>
-                                </div>
-                            @endif
-                            <div class="col-6">
-                                <button type="submit" style="float:right;" class="col-12 btn btn-primary btn-primary-second">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-                            </div>
-                        </div> --}}
-                    {{-- </form> --}}
-                    {{-- @endif --}}
-
-                    {{-- @if($order->order_fill_status == 4) --}}
-
-                        {{-- important --}}
-
-                        {{-- <div class="mt-2"></div>
-                        <div class="pre-form-texts">Part(-s) information</div>
-                        <button type="button" id="add_more_parts" class="mt-3 col-12 btn btn-sm btn-info">Add a different part</button>
-                        <div class="pre-form-texts mt-3 text-center">OR</div>
-                        <div class="row">
-                            <div class="col-md-12 form-group mt-1">
-                                <label for="">Search for parts to add</label>
-                                <select name="parts[]" id="" class="permissions-select form-control" multiple>
-                                    @foreach($parts as $part)
-                                        @if($part->pictures != null)
-                                            @php $pics = json_decode($part->pictures); @endphp
-                                            @php $pic = url('/temporary/parts/'.$part->id.'/'.$pics[0]); @endphp
-                                        @else
-                                            @php $pic = url('/temporary/part-placeholder.jpg'); @endphp
-                                        @endif
-
-                                        @if($order->parts_ids == null)
-
-                                            <option value="{{ $part->id }}"><img src="{{ $pic }}" style="width:50px;height:50px;">
-                                            Description: <b>{{ $part->description }}</b>, @if($part->code)Code: <b>{{ $part->code }}</b>, @endif
-                                            @if($part->bar_code)Bar Code: <b>{{ $part->bar_code }}</b>.@endif </option>
-
-                                        @else
-                                            @php $selectedParts = json_decode($order->parts_ids); @endphp
-
-                                            @foreach($selectedParts as $sp)
-                                                @if($sp == $part->id) 
-
-                                                    <option value="{{ $part->id }}" selected="selected"><img src="{{ $pic }}" style="width:50px;height:50px;">
-                                                    Description: <b>{{ $part->description }}</b>, @if($part->code)Code: <b>{{ $part->code }}</b>, @endif
-                                                    @if($part->bar_code)Bar Code: <b>{{ $part->bar_code }}</b>.@endif </option>
-
-                                                @else
-
-                                                    <option value="{{ $part->id }}"><img src="{{ $pic }}" style="width:50px;height:50px;">
-                                                    Description: <b>{{ $part->description }}</b>, @if($part->code)Code: <b>{{ $part->code }}</b>, @endif
-                                                    @if($part->bar_code)Bar Code: <b>{{ $part->bar_code }}</b>.@endif </option>
-
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                        
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row add_more_parts_rows">
-                        </div> --}}
-
-                        {{-- important --}}
-
-                        {{-- <div class="mt-3"></div>
-                        <div class="row">
-                            @if($order->order_fill_status == 4)
-                                <div class="col-6">
-                                    <a href="{{ url('/work/orders/create/'.$order->id.'/step-three') }}"><button type="button" style="float:right;" class="col-12 btn btn-primary btn-primary-second"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</button></a>
-                                </div>
-                            @endif
-                            <div class="col-6">
-                                <button type="submit" style="float:right;" class="col-12 btn btn-primary btn-primary-second">Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-                            </div>
-                        </div> --}}
-                    {{-- @endif --}}
-
-                    {{-- @if($order->order_fill_status == 5) --}}
-                        <div class="mt-2"></div>
-                        <div class="pre-form-texts">Other information</div>
-                        <div class="mt-3"></div>
-                        {{-- <div class="row">
-                            <div class="col-md-12">
-                                <label for="">Mechanic</label>
-                                <div class="mt-2"></div>
-                                <select class="permissions-select form-control" name="mechanic_id">
-                                    @if($order->mechanic_id == null)
-                                        <option value="" selected="selected" disabled>Select a mechanic</option>
-                                    @endif
-                                    @foreach($mechanics as $mechanic)
-                                        @if($mechanic->hasRole('Mechanic'))
-                                            <option value="{{ $mechanic->id }}" @if($order->mechanic == $mechanic->id) selected @endif>{{ $mechanic->name . " " . $mechanic->last_name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-                        <div class="mt-3"></div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="">Order priority</label>
-                                <div class="form-check">
-                                    @if($order->priority == "yes")
-                                        <input class="form-check-input" type="checkbox" name="priority" value="yes" id="flexCheckDefault" checked>
-                                    @else
-                                        <input class="form-check-input" type="checkbox" name="priority" value="yes" id="flexCheckDefault">
-                                    @endif
-                                    <label class="form-check-label" for="flexCheckDefault" style="padding-top: 4px;">Yes</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-3"></div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="">Order budget</label>
-                                <input type="number" step="0.01" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" name="budget" class="form-control">
-                            </div>
-                        </div>
-                        @if($customer->email)
-                        <div class="mt-3"></div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pre-form-texts-small" style="font-size:14px;">Would you like to send email to customer (<span style="color:rgb(163, 171, 207);">{{ $customer->email }}</span>) that you're starting the order?</div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="email_send" value="yes" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault" style="padding-top: 4px;">Yes</label>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        <div class="mt-3"></div>
-                        <div class="row col-12">
-                            <div class="col-9 form-group mt-3">
-                                <label for="">Your comment</label>
-                                <textarea type="text" id="editor" name="comments" class="form-control"></textarea>
-                            </div>
-                            <div class="col-3 mt-3" style="vertical-align: middle;">
-                                <div class="row">
-                                    <label for="">Attach picture(-s)</label>
-                                    <input type="file" name="pictures[]" class="form-control" multiple>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-3"></div>
-                        <div class="row">
-                            {{-- @if($order->order_fill_status == 5)
-                                <div class="col-6">
-                                    <a href="{{ url('/work/orders/create/'.$order->id.'/step-four') }}"><button type="button" style="float:right;" class="col-12 btn btn-primary btn-primary-second"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Previous</button></a>
-                                </div>
-                            @endif --}}
-                            <div class="col-12">
-                                <button type="submit" style="float:right;" class="col-6 btn btn-primary btn-primary-second">Finish order creation <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                        <div class="mt-3"></div>
-                    </form>
-                    {{-- @endif --}}
-
-                </div>
+                <!--begin::Close-->
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                        <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                        </svg></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </button>
+                <!--end::Close-->
             </div>
+            <!--end::Alert-->
+            @endif
+
+            @if($errors->any())
+            <!--begin::Alert-->
+            <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5 mb-10">
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                        <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+                    </svg>
+                </span>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <!--begin::Title-->
+                    <h4 class="fw-bold">{{ __('Something is wrong') }}</h4>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    {!! implode('', $errors->all('<span>• :message</span>')) !!}
+                    <!--end::Content-->
+                </div>
+                <!--end::Wrapper-->
+
+                <!--begin::Close-->
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-danger">
+                        <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                        <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                        </svg></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </button>
+                <!--end::Close-->
+            </div>
+            <!--end::Alert-->
+            @endif
+
+            <form id="kt_modal_add_user_form" class="form" action="{{ url('/work/orders/'.$order->id.'/store/step-one') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+            @csrf
+
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-2" style="min-height: 10px !important;">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Customer Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4">
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-8 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Customer') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <select class="permissions-select form-control form-control-sm form-control-solid mb-3 mb-lg-0" name="customer_id">
+                                <option value="" disabled selected>{{ __('Select a customer') }}</option>
+                                @foreach($customers as $customer)
+                                    <option value="{{ $customer->id }}" @if($order->customer_id == $customer->id) selected @endif>{{ $customer->name . ' || ' . $customer->company }}</option>
+                                @endforeach
+                            </select>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class=" fw-bold fs-6 mb-2 ">{{ __('Alternative Option') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <a href="{{ url('/work/orders/create-new-customer/'.$order->id) }}" class="btn btn-primary btn-sm col-12" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="{{ __('It will redirect you to a customer creation page and when done creating return you here.') }}">{{ 'Add New Customer' }}</a>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Card-->
+            <div class="card mt-8">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-2" style="min-height: 10px !important;">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Vehicle Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4">
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-8 col-md-12 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Type') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <select class="vehicle-type-select form-control form-control-sm form-control-solid mb-3 mb-lg-0" name="type" id="select_type">
+                                <option value="" disabled selected>{{ __('Select type') }}</option>
+                                <option value="car" @if($vehicle) @if($vehicle->type == 'car') selected @endif @endif>{{ __('Car') }}</option>
+                                <option value="truck" @if($vehicle) @if($vehicle->type == 'truck') selected @endif @endif>{{ __('Truck') }}</option>
+                                <option value="trailer" @if($vehicle) @if($vehicle->type == 'trailer') selected @endif @endif>{{ __('Trailer') }}</option>
+                            </select>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-8 col-md-12 col-xs-12 search-input-box" style="display:none;">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2 ">{{ __('Search') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0 search-input" placeholder="Quick search in database">
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <div id="search-results" class="fv-row mb-8" style="">
+
+                        </div>
+
+                        <!--begin::Truck Window group-->
+                        <div class="row truck-window" style="display:none;">
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('VIN') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="vin_code" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Model') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="model" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->model }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Make') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="make" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->make }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Engine') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="engine" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->engine }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Engine Number') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="engine_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->engine_number }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Gas Type') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="gas_type" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->gas_type }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Year') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="year" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->year }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Vehicle Number') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="company_vehicle_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Number Plate') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="number_plate" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Color') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="color" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->color }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Odometer') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="odometer_now" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->odometer_now }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                        </div>
+                        <!--end::Truck Window group-->
+
+                        <!--begin::Car Window group-->
+                        <div class="row car-window" style="display:none;">
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('VIN') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="vin_code" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Model') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="model" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->model }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Make') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="make" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->make }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Engine') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="engine" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->engine }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Engine Number') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="engine_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->engine_number }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Gas Type') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="gas_type" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->gas_type }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Year') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="year" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->year }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Vehicle Number') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="company_vehicle_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Number Plate') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="number_plate" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Color') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="color" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->color }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Odometer') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="odometer_now" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->odometer_now }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                        </div>
+                        <!--end::Trailer Window group-->
+
+                        <!--begin::Car Window group-->
+                        <div class="row trailer-window" style="display:none;">
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('VIN') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="vin_code" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->vin_code }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Model') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="model" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->model }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Make') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="make" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->make }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Year') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="year" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->year }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Trailer Number') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="company_vehicle_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->company_vehicle_number }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2 ">{{ __('Number Plate') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="number_plate" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->number_plate }}" @endif required>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                            <!--begin::Input group-->
+                            <div class="mb-8 col-md-3">
+                                <!--begin::Label-->
+                                <label class="fw-bold fs-6 mb-2 ">{{ __('Color') }}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input type="text" name="color" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" @if($vehicle) value="{{ $vehicle->color }}" @endif>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+
+                        </div>
+                        <!--end::Trailer Window group-->
+
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Card-->
+            <div class="card mt-8">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-2" style="min-height: 10px !important;">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Tasks Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4 mb-8">
+
+                    <div class="">
+
+                        <span class="required fw-bold fs-6 mb-2">{{ __('List of tasks that must be done') }}</span>
+
+                        <button type="button" style="float:right;" class="add-to-do btn btn-primary btn-sm">{{ __('Add task') }}</button>
+
+                    </div>
+
+                    <div class="form-group row mt-8" id="to_be_done_list">
+
+                        @if($order->to_be_done)
+
+                            @php 
+                                $tasks = json_decode($order->to_be_done); 
+                                $taskCount = 0;
+                            @endphp
+
+                            @foreach($tasks as $task)
+
+                                @php $taskCount++; @endphp
+
+                                <div class="appended-to-do-row{{ $taskCount }} mt-4">
+
+                                    <div class="col-10">
+                                        <input type="text" name="to_be_done[]" value="{{ $task->value }}" class="form-control form-control-sm form-control-solid mb-3" required>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-secondary btn-sm remove-to-do" data-idt="{{ $taskCount }}">{{ __('Remove') }}</button>
+                                    </div>
+
+                                </div>
+
+                            @endforeach
+
+                        @else 
+                            <div class="row appended-to-do-row19999 mt-4">
+                                <div class="col-10">
+                                    <input type="text" name="to_be_done[]" class="form-control form-control-sm form-control-solid mb-3" required>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        @endif
+
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Card-->
+            <div class="card mt-8">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-2" style="min-height: 10px !important;">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Other Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4 mb-8">
+
+                    <div class="row mt-1">
+
+                        <!--begin::Input group-->
+                        <div class="mb-8 col-md-4">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" name="priority" value="yes" id="order_priority" />
+                                <label class="form-check-label fw-bold fs-6" for="order_priority">
+                                    {{ __('This order must be prioritized') }}
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="mb-8 col-md-5">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" name="email_send" value="yes" id="order_email_sending" checked />
+                                <label class="form-check-label fw-bold fs-6" for="order_email_sending">
+                                    {{ __('Inform customer about order beginning via email') }}
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="mb-8 col-md-3">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2 ">{{ __('Order Budget') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="number" step="100" name="budget" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="row">
+
+                        <!--begin::Input group-->
+                        <div class="mb-8">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2 ">{{ __('Comment') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <textarea type="text" id="editor" name="comments" rows="6" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0"></textarea>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="mb-2">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2 ">{{ __('Attach picture(-s)') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="file" name="pictures[]" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" multiple>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Actions-->
+            <div class="mt-8" style="float:right;">
+                <a href="{{ request()->fullUrl() }}" class="btn btn-danger me-3">{{ __('Discard') }}</a>
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">{{ __('Submit') }}</span>
+                    <span class="indicator-progress">{{ __('Please wait...') }}
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+            </div>
+            <!--end::Actions-->
+
+            </form>
+            <!--end::Form-->
 
         </div>
+        <!--end::Container-->
     </div>
+    <!--end::Post-->
+
 
 @endsection
 
-@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-<script>
-    
-    $('.components > li').each(function() {
-        $(this).removeClass("active");
-    });
-    
-    $('#workSubmenu').addClass("show");
-    $('#orders-link-1').addClass("active");
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 
-    $(document).on('click', '.cancel_part', function() {
-        $(this).parents('.appended_part').remove();
-    });
+    <script>
 
-    var toDoCount = 0;
+        $(document).ready( function () {
 
-    $('.add-to-do').on('click', function() {
-        toDoCount++;
-        $('#to_be_done_list').append('\
-        <div class="row appended-to-do-row'+toDoCount+'">\
-            <div class="col-10">\
-                <input type="text" name="to_be_done[]" class="form-control mt-1" required>\
-            </div>\
-            <div class="col-2">\
-                <button type="button" class="btn btn-primary btn-sm mt-1 remove-to-do" style="float:right;" data-idt="'+toDoCount+'">Remove</button>\
-            </div>\
-        </div>\
-        ');
+            // remove active classes from sidebar
+            $('.menu-item').each(function() {
+                $(this).removeClass('here');
+                $(this).removeClass('show');
+            });
 
-        // <div class="col-3 mt-1">\
-        //     <select name="mechanics[]" id="" class="form-control" required>\
-        //         @if($order->to_be_done == null)\
-        //             <option value="" selected="selected" disabled>Select a mechanic</option>\
-        //         @endif\
-        //         @foreach($mechanics as $mechanic)\
-        //             @if($mechanic->hasRole("Mechanic"))\
-        //                 <option value="{{ $mechanic->id }}">{{ $mechanic->name . " " . $mechanic->last_name }}</option>\
-        //             @endif\
-        //         @endforeach\
-        //     </select>\
-        // </div>\
+            // add active classes to sidebar (current page)
+            $('.menu-orders-accordion').addClass('hover show');
+            $('.menu-orders-list').addClass('show');
 
-        $('select').select2({
-            minimumResultsForSearch: 1
-        });
-    });
+            $('.permissions-select').select2({
+                minimumResultsForSearch: 1
+            });
 
-    $(document).on('click', '.remove-to-do', function() {
-        var row = $(this).attr('data-idt');
-        // console.log(row);
-        $('.appended-to-do-row'+row).remove();
-    });
+            $('.vehicle-type-select').select2({
+                minimumResultsForSearch: 1
+            });
 
-    // looking for vehicles
+            // add a task
 
-    $('.search-input').on('keyup', function(e) {
+            var toDoCount = 0;
 
-        var vinCode = $('.search-input').val();
-        var type = $('#select_type option:selected').val();
+            $('.add-to-do').on('click', function() {
 
-        $.ajax({
-            type: 'POST',
-            url: '/orders/get-similar-vehicle',
-            data: {vinCode: vinCode, type: type},
-            beforeSend: function() {
+                toDoCount++;
 
-            },
-            success: function(data) {
+                $('#to_be_done_list').append('\
+                <div class="row appended-to-do-row'+toDoCount+'">\
+                    <div class="col-10">\
+                        <input type="text" name="to_be_done[]" class="form-control form-control-sm form-control-solid mb-3" required>\
+                    </div>\
+                    <div class="col-2">\
+                        <button type="button" class="btn btn-secondary btn-sm mb-3 remove-to-do" data-idt="'+toDoCount+'">{{ __('Remove') }}</button>\
+                    </div>\
+                </div>\
+                ');
 
-                $('#search-results').empty();
+            });
 
-                if(data) {
+            // remove a task
 
-                    var objects = JSON.parse(data);
-                    // console.log(objects);
+            $(document).on('click', '.remove-to-do', function() {
+                var row = $(this).attr('data-idt');
+                // console.log(row);
+                $('.appended-to-do-row'+row).remove();
+            });
 
-                    objects.forEach(function(i, v) {
+            // looking for vehicles
 
-                        // console.log(i, v);
+            $('.search-input').on('keyup', function(e) {
 
-                        var id = i['id'];
+                var searchInput = $('.search-input').val();
+                var type = $('#select_type option:selected').val();
 
-                        if(i['pictures'] != null) {
-                            var firstPic = JSON.parse(i.pictures);
-                            // console.log(i['pictures'].shift());
-                            var picture = "{{ url('/temporary/parts/') }}" + "/" + id + "/" + firstPic[0];
-                        } else {
-                            var picture = "{{ url('/temporary/part-placeholder.jpg') }}";
+                $.ajax({
+                    type: 'POST',
+                    url: '/orders/get-similar-vehicle',
+                    data: {searchInput: searchInput, type: type},
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+
+                        $('#search-results').empty();
+
+                        if(data) {
+
+                            var objects = JSON.parse(data);
+                            // console.log(objects);
+
+                            objects.forEach(function(i, v) {
+
+                                // console.log(i, v);
+
+                                var id = i['id'];
+
+                                if(i['pictures'] != null) {
+                                    var firstPic = JSON.parse(i.pictures);
+                                    // console.log(i['pictures'].shift());
+                                    var picture = "{{ url('/temporary/parts/') }}" + "/" + id + "/" + firstPic[0];
+                                } else {
+                                    var picture = "{{ url('/temporary/part-placeholder.jpg') }}";
+                                }
+                                
+
+                                if(!$('.evehicle'+id+'').length) {
+                                    $('#search-results').append('<div class="d-flex row evehicle'+id+'"><div class="col-md-12 bought-part-hover mt-1" style="height:50px;"> <img src="'+picture+'" style="width:50px;height:50px;">\
+                                    Model: <b>'+i['model']+'</b>, Make: <b>'+i['make']+'</b>, \
+                                    Vin Code: <b>'+i['vin_code']+'</b>. \
+                                    <button class="add-vehicle-btn btn btn-sm btn-primary" style="float:right;vertical-align:middle;" data-ide="'+id+'">Select this vehicle</button></div></div>')
+                                }
+
+                            });
+
                         }
-                        
 
-                        if(!$('.evehicle'+id+'').length) {
-                            $('#search-results').append('<div class="d-flex row evehicle'+id+'"><div class="col-md-12 bought-part-hover mt-1" style="height:50px;"> <img src="'+picture+'" style="width:50px;height:50px;">\
-                            Model: <b>'+i['model']+'</b>, Make: <b>'+i['make']+'</b>, \
-                            Vin Code: <b>'+i['vin_code']+'</b>. \
-                            <button class="b-parts-btn btn btn-sm btn-primary" style="float:right;vertical-align:middle;" data-ide="'+id+'">Select this vehicle</button></div></div>')
-                        }
+                    }
+                });
 
+            });
 
+            $('#select_type').on('change', function() {
 
+                if(this.value == 'car') {
+                    $('.car-window').css('display', 'flex');
+                    $('.truck-window').css('display', 'none');
+                    $('.trailer-window').css('display', 'none');
+                    $('.search-input-box').css('display', 'block');
+
+                    $('.truck-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
+                    });
+                    $('.car-window input').each(function(){
+                        $(this).removeAttr('disabled');
+                    });
+                    $('.trailer-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
                     });
 
+                } else if(this.value == 'truck') {
+
+                    $('.car-window').css('display', 'none');
+                    $('.truck-window').css('display', 'flex');
+                    $('.trailer-window').css('display', 'none');
+                    $('.search-input-box').css('display', 'block');
+
+                    $('.car-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
+                    });
+                    $('.truck-window input').each(function(){
+                        $(this).removeAttr('disabled');
+                    });
+                    $('.trailer-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
+                    });
+
+                } else if(this.value == 'trailer') {
+
+                    $('.car-window').css('display', 'none');
+                    $('.truck-window').css('display', 'none');
+                    $('.trailer-window').css('display', 'flex');
+                    $('.search-input-box').css('display', 'block');
+
+                    $('.truck-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
+                    });
+                    $('.trailer-window input').each(function(){
+                        $(this).removeAttr('disabled');
+                    });
+                    $('.car-window input').each(function(){
+                        $(this).attr('disabled', 'disabled');
+                    });
+                    
+                } else {
+                    $('.car-window').css('display', 'none');
+                    $('.truck-window').css('display', 'none');
+                    $('.trailer-window').css('display', 'none');
+                    $('.search-input-box').css('display', 'none');
                 }
 
+            });
+
+        });
+
+        $(document).on('click', '.add-vehicle-btn', function(e) {
+
+            e.preventDefault();
+
+            var id = $(this).attr('data-ide');
+
+            if(id) {
+
+                $.ajax({
+
+                    type:'POST',
+                    url: '/orders/add-this-vehicle',
+                    data: {id: id},
+                    beforeSend: function() {
+
+                    },
+                    success:function(data) {
+
+                        var obj = JSON.parse(data);
+
+                        if(obj['odometer_before']) {
+                            var getOdo = JSON.parse(obj['odometer_before']);
+                            var odometer = getOdo.pop();
+                        } else {
+                            var odometer = obj['odometer_now'];
+                        }
+
+                        $('input[name="vin_code"]').val(obj['vin_code']);
+                        $('input[name="model"]').val(obj['model']);
+                        $('input[name="make"]').val(obj['make']);
+                        $('input[name="engine"]').val(obj['engine']);
+                        $('input[name="gas_type"]').val(obj['gas_type']);
+                        $('input[name="year"]').val(obj['year']);
+                        $('input[name="engine_number"]').val(obj['engine_number']);
+                        $('input[name="number_plate"]').val(obj['number_plate']);
+                        $('input[name="color"]').val(obj['color']);
+                        $('input[name="odometer_now"]').val(odometer);
+                        $('input[name="company_vehicle_number"]').val(obj['company_vehicle_number']);
+
+                    },
+
+                });
+
             }
+
         });
 
-    });
-
-    $(document).on('click', '.b-parts-btn', function(e) {
-
-        e.preventDefault();
-
-        var id = $(this).attr('data-ide');
-
-        if(id) {
-
-            $.ajax({
-
-                type:'POST',
-                url: '/orders/add-this-vehicle',
-                data: {id: id},
-                beforeSend: function() {
-
-                },
-                success:function(data) {
-
-                    var obj = JSON.parse(data);
-
-                    if(obj['odometer_before']) {
-                        var getOdo = JSON.parse(obj['odometer_before']);
-                        var odometer = getOdo.pop();
-                    } else {
-                        var odometer = obj['odometer_now'];
-                    }
-
-                    $('input[name="vin_code"]').val(obj['vin_code']);
-                    $('input[name="model"]').val(obj['model']);
-                    $('input[name="make"]').val(obj['make']);
-                    $('input[name="engine"]').val(obj['engine']);
-                    $('input[name="gas_type"]').val(obj['gas_type']);
-                    $('input[name="year"]').val(obj['year']);
-                    $('input[name="engine_number"]').val(obj['engine_number']);
-                    $('input[name="number_plate"]').val(obj['number_plate']);
-                    $('input[name="color"]').val(obj['color']);
-                    $('input[name="odometer_now"]').val(odometer);
-                    $('input[name="company_vehicle_number"]').val(obj['company_vehicle_number']);
-
-                },
-
-            });
-
-            }
-
-    });
-
-    $('#add_more_parts').on('click', function() {
-
-    $('.add_more_parts_rows').append('<div class="appended_part">\
-        <div class="mt-3"></div>\
-        <div class="pre-form-texts">Part(-s) information <button type="button" data-toggle="tooltip" title="Remove part(-s)" class="cancel_part"><i class="fa fa-times-circle" aria-hidden="true"></i></button></div>\
-        <div class="row parts-row">\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Code</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="code[]" class="form-control code-autofill" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Bar Code</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="bar_code[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Description</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="description[]" class="form-control similar_product" placeholder="" required>\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Instructions</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="instructions[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Type</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="type[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Model</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="model[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Make</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="make[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3">\
-                <label for="">Style</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="style[]" class="form-control" placeholder="">\
-            </div>\
-            <div class="col-md-2 form-group mt-3 mb-3">\
-                <label for="">Part Category</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="category[]" class="form-control" placeholder="">\
-            </div><div class="col-md-12 similar_product_show"></div>\
-        </div></div>');
-    });
-
-    $(document).ready(function() {
-        $('.permissions-select').select2({
-            minimumResultsForSearch: 1
-        });
-
-        $('select').select2({
-            minimumResultsForSearch: 1
-        });
-
-        var cType = $("#select_type option:selected").val();
-        
-        if(cType == 'car') {
-            $('.car-window').css('display', 'block');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'block');
-
-            $('.truck-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.trailer-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-
-        } else if(cType == 'truck') {
-
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'block');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'block');
- 
-            $('.car-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.trailer-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-
-        } else if(cType == 'trailer') {
-
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'block');
-            $('.search-input-box').css('display', 'block');
-
-            $('.truck-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.car-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            
-        } else {
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'none');
-        }
-
-    });
-
-    $('#select_type').on('change', function() {
-
-        if(this.value == 'car') {
-            $('.car-window').css('display', 'block');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'block');
-
-            $('.truck-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.car-window input').each(function(){
-                $(this).removeAttr('disabled');
-            });
-            $('.trailer-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-
-        } else if(this.value == 'truck') {
-
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'block');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'block');
- 
-            $('.car-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.truck-window input').each(function(){
-                $(this).removeAttr('disabled');
-            });
-            $('.trailer-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-
-        } else if(this.value == 'trailer') {
-
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'block');
-            $('.search-input-box').css('display', 'block');
-
-            $('.truck-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            $('.trailer-window input').each(function(){
-                $(this).removeAttr('disabled');
-            });
-            $('.car-window input').each(function(){
-                $(this).attr('disabled', 'disabled');
-            });
-            
-        } else {
-            $('.car-window').css('display', 'none');
-            $('.truck-window').css('display', 'none');
-            $('.trailer-window').css('display', 'none');
-            $('.search-input-box').css('display', 'none');
-        }
-
-    });
-
-</script>
-
-@endsection
+    </script>

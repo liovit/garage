@@ -128,11 +128,11 @@
                     <form action="{{ url('/management/users/delete/user/'.$user->id) }}" method="post">
                         {{ method_field('DELETE') }}
                         @csrf
-                        <button type="submit" class="col-12 btn btn-success"><i class="fas fa-check-circle"></i> Yes</button>
+                        <button type="submit" class="col-12 btn btn-success"><i class="fas fa-check-circle"></i> {{ __('Yes') }}</button>
                     </form>
                 </div>
                 <div class="col-6 form-group">
-                    <a href="{{ url('/management/users') }}" class="col-12 btn btn-danger"><i class="fas fa-times-circle"></i> No</a>
+                    <a href="{{ url('/management/users') }}" class="col-12 btn btn-danger"><i class="fas fa-times-circle"></i> {{ __('No') }}</a>
                 </div>
             </div>
 

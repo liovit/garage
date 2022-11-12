@@ -262,7 +262,7 @@
                                 @if($supplier->supplier_address || $supplier->supplier_city || $supplier->supplier_post || $supplier->supplier_state)
                                     <div class="fw-bolder mt-5">{{ __('Address') }}</div>
                                 @endif
-                                @if($supplier->supplier_addresss)
+                                @if($supplier->supplier_address)
                                     <div class="text-gray-600">{{ $supplier->supplier_address }},</div>
                                 @endif
                                 @if($supplier->supplier_post)

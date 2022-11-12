@@ -1,356 +1,568 @@
 @extends('home')
 
-@section('content-f')
-    <div class="breadcrumb-box">
-        Supplier Management <i class="ml-4 arrow-style fas fa-chevron-right"></i> <i class="arrow-style fas fa-chevron-right mr-4"></i> <a href="{{ url('/management/suppliers') }}" class="breadcrumb-style">Suppliers List</a> <i class="ml-4 arrow-style fas fa-chevron-right"></i> <i class="arrow-style fas fa-chevron-right mr-4"></i> <a href="{{ url('/management/suppliers/create') }}" class="breadcrumb-style">Add new supplier</a>
-    </div>
+<title>{{ __('Garage | Create New Supplier') }}</title>
+
+@section('toolbar-content')
+
+    @section('breadcrumbs')
+        {{ __('Suppliers') }}
+    @endsection
+
+    @section('description')
+        {{ __('Create New Supplier') }}
+    @endsection
+
+    @section('back-button')
+        <div class="m-0">
+            {{-- <a href="{{ url()->previous() }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"> --}}
+            <a href="{{ url('/management/suppliers') }}" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder">
+            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/Navigation/Angle-double-left.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <polygon points="0 0 24 0 24 24 0 24"/>
+                    <path d="M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z" fill="#000000" fill-rule="nonzero" transform="translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999) "/>
+                    <path d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) "/>
+                </g>
+            </svg></span>
+            {{ __('Back') }}</a>
+        </div>
+    @endsection
+
+    @section('create-button')
+        <a href="{{ url('/management/suppliers/create') }}" class="btn btn-sm btn-primary">
+            <span class="svg-icon svg-icon-2"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo4/dist/../src/media/svg/icons/General/Update.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"/>
+                    <path d="M8.43296491,7.17429118 L9.40782327,7.85689436 C9.49616631,7.91875282 9.56214077,8.00751728 9.5959027,8.10994332 C9.68235021,8.37220548 9.53982427,8.65489052 9.27756211,8.74133803 L5.89079566,9.85769242 C5.84469033,9.87288977 5.79661753,9.8812917 5.74809064,9.88263369 C5.4720538,9.8902674 5.24209339,9.67268366 5.23445968,9.39664682 L5.13610134,5.83998177 C5.13313425,5.73269078 5.16477113,5.62729274 5.22633424,5.53937151 C5.384723,5.31316892 5.69649589,5.25819495 5.92269848,5.4165837 L6.72910242,5.98123382 C8.16546398,4.72182424 10.0239806,4 12,4 C16.418278,4 20,7.581722 20,12 C20,16.418278 16.418278,20 12,20 C7.581722,20 4,16.418278 4,12 L6,12 C6,15.3137085 8.6862915,18 12,18 C15.3137085,18 18,15.3137085 18,12 C18,8.6862915 15.3137085,6 12,6 C10.6885336,6 9.44767246,6.42282109 8.43296491,7.17429118 Z" fill="#000000" fill-rule="nonzero"/>
+                </g>
+            </svg><!--end::Svg Icon--></span>
+        {{ __('Refresh') }}</a>
+    @endsection
+
 @endsection
 
-@section('content-d')
+@section('container-content')
 
-    <div style="margin-top: 20px;"></div>
+    <div style="margin-top: 30px;"></div>
 
-    {{-- <div class="row pl-13 col-md-12 content-row">
-        <button id="user_create" class="mb-4 btn btn-primary"><i class="fas fa-plus-square"></i> Add new entry</button>
-    </div> --}}
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl pb-8">
 
-    <div class="row pl-13 col-md-12 content-row">
-        @if(Session::has('success'))
-            <div class="alert alert-info text-center">{{ Session::get('success') }}</div>
-        @endif
-        @if(Session::has('error'))
-            <div class="alert alert-danger text-center">{{ Session::get('error') }}</div>
-        @endif
-    </div>
+            @if (Session::has('success'))
+            <!--begin::Alert-->
+            <div class="alert alert-dismissible bg-light-success d-flex flex-column flex-sm-row p-5 mb-10">
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2hx svg-icon-success me-4 mb-5 mb-sm-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                        <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+                    </svg>
+                </span>
+                <!--end::Icon-->
 
-    <div class="row">
-        {{-- pl-13 pr-27 content-row  --}}
-        <div class="col-md-12 pl-13 pr-27 content-row">
-
-            <div class="card card-custom">
-                <div class="card-header card-header-custom">
-                  Add new supplier
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <!--begin::Title-->
+                    <h4 class="fw-bold">{{ __('Success') }}</h4>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    <span>{{ Session::get('success') }}</span>
+                    <!--end::Content-->
                 </div>
-                <div class="card-body card-body-custom">
-                    <div class="mt-2"></div>
-                    <form action="{{ url('/management/suppliers/confirm-creation') }}" method="post" autocomplete="off">
-                        @csrf
-                        <div class="pre-form-texts">Supplier information</div>
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Company</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_company" class="form-control" placeholder="" required>
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Name</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_name" class="form-control" placeholder="" required>
-                            </div>
-                        </div>
-                        {{-- <div class="mt-3"></div> --}}
-                        <div class="row">
-                            <div class="col-md-2 form-group mt-2">
-                                <label for="">City</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_city" id="city" class="form-control" placeholder="" autocomplete="off" required>
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Address</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_address" id="address" class="form-control" placeholder="" autocomplete="new-password" required>
-                            </div>
-                            <div class="col-md-3 form-group mt-2">
-                                <label for="">Postal Code</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_post" id="zip" class="form-control" placeholder="" autocomplete="new-password" required>
-                            </div>
-                            <div class="col-md-3 form-group mt-2">
-                                <label for="">State</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_state" id="state" class="form-control" placeholder="" autocomplete="new-password" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Email</label>
-                                <div class="mt-1"></div>
-                                <input type="email" name="supplier_email" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Telephone</label>
-                                <div class="mt-2"></div>
-                                <input type="text" name="supplier_telephone" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Fax</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_fax" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                        </div>
+                <!--end::Wrapper-->
 
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Toll fee</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_toll" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Telephone</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="supplier_alt_phone" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                        </div>
+                <!--begin::Close-->
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-success">
+                        <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                        <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                        </svg></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </button>
+                <!--end::Close-->
+            </div>
+            <!--end::Alert-->
+            @endif
 
-                        <div class="mt-3"></div>
-                        <div class="pre-form-texts">Billing company</div>
+            @if($errors->any())
+            <!--begin::Alert-->
+            <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5 mb-10">
+                <!--begin::Icon-->
+                <span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+                        <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+                    </svg>
+                </span>
+                <!--end::Icon-->
 
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Company</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_company" class="form-control" placeholder="" required>
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Name</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_name" class="form-control" placeholder="" required>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group mt-2">
-                                <label for="">City</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_city" id="b_city" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Address</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_address" id="b_address" class="form-control" placeholder="" autocomplete="new-password">
-                            </div>
-                            <div class="col-md-3 form-group mt-2">
-                                <label for="">Postal Code</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_post" id="b_zip" class="form-control" placeholder="" autocomplete="new-password">
-                            </div>
-                            <div class="col-md-3 form-group mt-2">
-                                <label for="">State</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_state" id="b_state" class="form-control" placeholder="" autocomplete="new-password">
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Email</label>
-                                <div class="mt-1"></div>
-                                <input type="email" name="billing_email" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Telephone</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_telephone" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Fax</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_fax" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Toll fee</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_toll" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                            <div class="col-md-4 form-group mt-2">
-                                <label for="">Telephone</label>
-                                <div class="mt-1"></div>
-                                <input type="text" name="billing_alt_phone" class="form-control" placeholder="" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="add_more_contacts_rows">
-                        </div>
-
-                        <div class="row">
-                            <div class="mt-3"></div>
-                            <div class="pre-form-texts">Comments</div>
-                            <div class="col-md-12 form-group mt-2">
-                                <div class="mt-2"></div>
-                                <textarea name="comments" id="" class="form-control" cols="30" rows="7"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="mt-3"></div>
-                        <button type="button" class="btn btn-primary btn-primary-second col-12" id="add_more_contacts"><i class="fas fa-plus-square"></i> Add more contacts</button>
-                        <div class="mt-3"></div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" style="float:right;" class="col-12 btn btn-primary btn-primary-second">Confirm <i class="fas fa-check"></i></button>
-                            </div>
-                        </div>
-                    </form>
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <!--begin::Title-->
+                    <h4 class="fw-bold">{{ __('Something is wrong') }}</h4>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    {!! implode('', $errors->all('<span>• :message</span>')) !!}
+                    <!--end::Content-->
                 </div>
+                <!--end::Wrapper-->
+
+                <!--begin::Close-->
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-danger">
+                        <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr011.svg-->
+                        <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="black"/>
+                        <path d="M18.8 19.7C18.5 19.7 18.3 19.6 18.1 19.4L5.40001 6.69999C5.00001 6.29999 5.00001 5.7 5.40001 5.3C5.80001 4.9 6.40001 4.9 6.80001 5.3L19.5 18C19.9 18.4 19.9 19 19.5 19.4C19.3 19.6 19 19.7 18.8 19.7Z" fill="black"/>
+                        </svg></span>
+                        <!--end::Svg Icon-->
+                    </span>
+                </button>
+                <!--end::Close-->
+            </div>
+            <!--end::Alert-->
+            @endif
+
+            <form id="kt_modal_add_user_form" class="form" action="{{ url('/management/suppliers/confirm-creation') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Supplier Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4">
+
+                    @csrf
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="d-block fw-bold fs-6 mb-5">{{ __('Avatar') }}</label>
+                        <!--end::Label-->
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/media/svg/avatars/blank.svg')">
+                            <!--begin::Preview existing avatar-->
+                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('/media/svg/avatars/blank.svg');"></div>
+                            <!--end::Preview existing avatar-->
+                            <!--begin::Label-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="{{ __('Change avatar') }}">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <!--begin::Inputs-->
+                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                <input type="hidden" name="avatar_remove" />
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Cancel-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="{{ __('Cancel avatar') }}">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">{{ __('Allowed file types: png, jpg, jpeg.') }}</div>
+                        <!--end::Hint-->
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Company') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_company" value="{{ old('supplier_company') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Express Inc."/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Name') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_name" value="{{ old('supplier_name') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="John Doe"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-2 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('City') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_city" value="{{ old('supplier_city') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="New York" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-4 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Address') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_address" value="{{ old('supplier_address') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="20 Water Street" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-3 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Post Code') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_post" value="{{ old('supplier_post') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="NY 10023" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-3 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('State') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_state" value="{{ old('supplier_state') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="New York" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2">{{ __('Email') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="email" name="supplier_email" value="{{ old('supplier_email') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="smith@domain.com" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2">{{ __('Phone Number') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_telephone" value="{{ old('supplier_telephone') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Fax') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_fax" value="{{ old('supplier_fax') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="555-123-4567" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Alt. Phone Number') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="supplier_alt_phone" value="{{ old('supplier_alt_phone') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="+37062222346" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Card-->
+            <div class="card mt-8">
+                <!--begin::Card header-->
+                <div class="card-header border-0">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Billing Company Information') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4">
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Company') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_company" value="{{ old('billing_company') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Express Inc."/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2 ">{{ __('Name') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_name" value="{{ old('billing_name') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="John Doe"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-2 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('City') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_city" value="{{ old('billing_city') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="New York" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-4 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Address') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_address" value="{{ old('billing_address') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="20 Water Street" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-3 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Post Code') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_post" value="{{ old('billing_post') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="NY 10023" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-3 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('State') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_state" value="{{ old('billing_state') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="New York" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2">{{ __('Email') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="email" name="billing_email" value="{{ old('billing_email') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="smith@domain.com" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="required fw-bold fs-6 mb-2">{{ __('Phone Number') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_telephone" value="{{ old('billing_telephone') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="+37062222345" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Fax') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_fax" value="{{ old('billing_fax') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="555-123-4567" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7 col-md-6 col-xs-12">
+                            <!--begin::Label-->
+                            <label class="fw-bold fs-6 mb-2">{{ __('Alt. Phone Number') }}</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="billing_alt_phone" value="{{ old('billing_alt_phone') }}" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="+37062222346" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Card-->
+            <div class="card mt-8" id="contacts" style="display: none;">
+                <!--begin::Card header-->
+                <div class="card-header border-0">
+                    <!--begin::Card title-->
+                    <div class="card-title mt-8 mb-4">
+                        <h2 class="fw-bolder mb-0">{{ __('Alternative Contacts') }}</h2>
+                    </div>
+                    <!--end::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="add_more_contacts_rows card-body py-4">
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <!--begin::Actions-->
+
+            <div class="mt-8" style="float:left">
+                <button type="button" class="btn btn-primary btn-primary-second me-3" style="float:left;" id="add_more_contacts"><i class="fas fa-plus-square"></i> {{ __('Add more contacts') }}</button>
             </div>
 
+            <div class="mt-8" style="float:right;">
+                <a href="{{ url('/management/suppliers/create') }}" class="btn btn-danger me-3">{{ __('Discard') }}</a>
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">{{ __('Submit') }}</span>
+                    <span class="indicator-progress">{{ __('Please wait...') }}
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                </button>
+            </div>
+
+            <!--end::Actions-->
+
+            </form>
+            <!--end::Form-->
+
         </div>
+        <!--end::Container-->
     </div>
+    <!--end::Post-->
+
 
 @endsection
 
-@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 
-    $('.components > li').each(function() {
-        $(this).removeClass("active");
-    });
+    <script>
 
-    $('#suppliers-link').addClass("active");
+        $(document).ready( function () {
 
-    $('#add_more_contacts').on('click', function() {
-
-        $('.add_more_contacts_rows').append('<div class="appended_contact"><div class="mt-3"></div>\
-        <div class="pre-form-texts">Add more contacts <button type="button" data-toggle="tooltip" title="Remove this contact" class="cancel_contact"><i class="fa fa-times-circle" aria-hidden="true"></i></button></div>\
-        <div class="row">\
-            <div class="col-md-4 form-group mt-3">\
-                <label for="">Name</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="alt_contacts_names[]" class="form-control" placeholder="" autocomplete="off">\
-            </div>\
-        </div>\
-        <div class="row">\
-            <div class="col-md-4 form-group mt-3">\
-                <label for="">Email</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="alt_contacts_emails[]" class="form-control" placeholder="" autocomplete="off">\
-            </div>\
-            <div class="col-md-4 form-group mt-3">\
-                <label for="">Telephone</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="alt_contacts_phones[]" class="form-control" placeholder="" autocomplete="off">\
-            </div>\
-            <div class="col-md-4 form-group mt-3">\
-                <label for="">Fax</label>\
-                <div class="mt-2"></div>\
-                <input type="text" name="alt_contacts_faxes[]" class="form-control" placeholder="" autocomplete="off">\
-            </div>\
-        </div></div>').slideDown('slow');
-
-    });
-
-    $('#zip').on('keyup', function(e) {
-
-        var zip = $(this).val();
-        getAddressInfoByZip(zip);
-
-    });
-
-    function getAddressInfoByZip(zip) {
-
-        if(zip.length >= 5 && typeof google != 'undefined') {
-
-            var addr = {};
-            var geocoder = new google.maps.Geocoder();
-
-            geocoder.geocode({ 'address': zip }, function(results, status){
-
-                if (status == google.maps.GeocoderStatus.OK){
-
-                    if (results.length >= 0) {
-
-                        console.log(results);
-
-                        for (var i = 0; i < results[0].address_components.length; i++){
-                            var street_number = route = street = city = state = zipcode = country = formatted_address = '';
-                            var types = results[0].address_components[i].types.join(",");
-                            if (types == "street_address"){
-                                street = results[0].address_components[i].long_name;}
-                            if (types == "route") {
-                                addr.route = results[0].address_components[i].long_name;}
-                            if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political"){
-                                addr.city = (city == '' || types == "locality,political") ? results[0].address_components[i].long_name : city;}
-                            if (types == "administrative_area_level_1,political"){
-                                addr.state = results[0].address_components[i].short_name;}
-
-                        }
-
-                        addr.success = true;
-                        $('#city').val( addr.city );
-                        $('#state').val( addr.state );
-                        $('#address').val( addr.route );
-
-                    } else {
-                        addr.success = false;
-                    }
-
-                } else {
-                    addr.success = false;
-                }
+            // remove active classes from sidebar
+            $('.menu-item').each(function() {
+                $(this).removeClass('here');
+                $(this).removeClass('show');
             });
-        }
-    }
 
-    $('#b_zip').on('keyup', function(e) {
+            // add active classes to sidebar (current page)
+            $('.menu-suppliers-list').addClass('show');
 
-        var zip = $(this).val();
-        getAddressInfoByZipB(zip);
+            $('#add_more_contacts').on('click', function() {
 
-    });
+                $('#contacts').css('display', 'block')
 
-    function getAddressInfoByZipB(zip) {
+                $('.add_more_contacts_rows').append('<div class="appended_contact mb-8"><div><button type="button" style="float:right;" class="btn btn-sm btn-secondary cancel_contact">Remove</button></div>\
+                <div class="row">\
+                    <div class="col-md-3 form-group">\
+                        <label class="fw-bold fs-6 mb-2">{{ __('Name') }}</label>\
+                        <div class="mt-2"></div>\
+                        <input type="text" name="alt_contacts_names[]" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="" autocomplete="off">\
+                    </div>\
+                    <div class="col-md-3 form-group">\
+                        <label class="fw-bold fs-6 mb-2">{{ __('Email') }}</label>\
+                        <div class="mt-2"></div>\
+                        <input type="text" name="alt_contacts_emails[]" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="" autocomplete="off">\
+                    </div>\
+                    <div class="col-md-3 form-group">\
+                        <label class="fw-bold fs-6 mb-2">{{ __('Phone') }}</label>\
+                        <div class="mt-2"></div>\
+                        <input type="text" name="alt_contacts_phones[]" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="" autocomplete="off">\
+                    </div>\
+                    <div class="col-md-3 form-group">\
+                        <label class="fw-bold fs-6 mb-2">{{ __('Fax') }}</label>\
+                        <div class="mt-2"></div>\
+                        <input type="text" name="alt_contacts_faxes[]" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="" autocomplete="off">\
+                    </div>\
+                </div></div>').slideDown('slow');
 
-        if(zip.length >= 5 && typeof google != 'undefined') {
-
-            var addr = {};
-            var geocoder = new google.maps.Geocoder();
-
-            geocoder.geocode({ 'address': zip }, function(results, status){
-
-                if (status == google.maps.GeocoderStatus.OK){
-
-                    if (results.length >= 0) {
-
-                        console.log(results);
-
-                        for (var i = 0; i < results[0].address_components.length; i++){
-                            var street_number = route = street = city = state = zipcode = country = formatted_address = '';
-                            var types = results[0].address_components[i].types.join(",");
-                            if (types == "street_address"){
-                                street = results[0].address_components[i].long_name;}
-                            if (types == "route") {
-                                addr.route = results[0].address_components[i].long_name;}
-                            if (types == "sublocality,political" || types == "locality,political" || types == "neighborhood,political" || types == "administrative_area_level_3,political"){
-                                addr.city = (city == '' || types == "locality,political") ? results[0].address_components[i].long_name : city;}
-                            if (types == "administrative_area_level_1,political"){
-                                addr.state = results[0].address_components[i].short_name;}
-
-                        }
-
-                        addr.success = true;
-                        $('#b_city').val( addr.city );
-                        $('#b_state').val( addr.state );
-                        $('#b_address').val( addr.route );
-
-                    } else {
-                        addr.success = false;
-                    }
-
-                } else {
-                    addr.success = false;
-                }
             });
-        }
-    }
 
-    $(document).on('click', '.cancel_contact', function() {
-        $(this).parents('.appended_contact').remove();
-    });
+            $(document).on('click', '.cancel_contact', function() {
 
-</script>
+                $(this).parents('.appended_contact').remove();
 
-@endsection
+                if($('.appended_contact').length == 0) {
+                    $('#contacts').css('display', 'none');
+                }
+
+            });
+
+        });
+
+    </script>

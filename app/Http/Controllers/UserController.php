@@ -16,9 +16,11 @@ use App\Http\Requests\UpdateUserRequest;
 class UserController extends Controller
 {
 
-    // public $filesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/vehicles/';
-    public $filesPath = '/Users/noname/Desktop/noname/Projects/Laravel/Laravel#Projects/2021/1#GarageServices/public/media/profiles/';
-    public $removeFilesPath = '/Users/noname/Desktop/noname/Projects/Laravel/Laravel#Projects/2021/1#GarageServices/public';
+    // public $filesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/garage/media/profiles/';
+    // public $removeFilesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/';
+
+    public $filesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public/media/profiles/';
+    public $removeFilesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public';
 
     /**
      * Display a listing of the resource.

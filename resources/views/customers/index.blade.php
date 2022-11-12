@@ -370,14 +370,14 @@
                                         <!--begin::Menu item-->
                                         @canany(['customer.management.edit', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/edit/'.$customer->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
+                                                <a href="{{ url('/management/customers/edit/'.$customer->id) }}" class="menu-link px-3">{{ __('Edit') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         @canany(['customer.management.delete', 'everything'])
                                             <div class="menu-item px-3">
-                                                <a href="{{ url('/management/customer/pre-delete/'.$customer->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
+                                                <a href="{{ url('/management/customers/pre-delete/'.$customer->id) }}" class="menu-link px-3" data-kt-users-table-filter="delete_row">{{ __('Delete') }}</a>
                                             </div>
                                         @endcanany
                                         <!--end::Menu item-->

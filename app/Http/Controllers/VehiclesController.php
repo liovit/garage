@@ -22,7 +22,8 @@ class VehiclesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $filesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/vehicles/';
+    public $filesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/garage/temporary/vehicles/';
+    public $removeFilesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/';
 
     public function index()
     {

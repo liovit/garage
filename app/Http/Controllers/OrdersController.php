@@ -35,8 +35,14 @@ class OrdersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $filesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/orders/comments/';
-    public $invoicesPath = '/home/u874210567/domains/labairimtaimone.lt/public_html/garage/temporary/invoices/';
+    // public $filesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/garage/temporary/orders/comments/';
+    // public $invoicesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/garage/temporary/invoices/';
+    // public $removeFilesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/';
+
+    public $filesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public/temporary/orders/comments/';
+    public $invoicesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public/temporary/invoices/';
+    public $removeFilesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public';
+
 
     public function index()
     {
@@ -1092,6 +1098,81 @@ class OrdersController extends Controller
 
     }
 
+    public function add_task(Request $request, $id) 
+    {
+
+        $user = Auth::user();
+
+        if($user->hasAnyPermission(['orders.edit', 'everything'])) {
+
+            $order = Order::find($id);
+
+            if($order->to_be_done) {
+
+                $array = json_decode($order->to_be_done);
+
+                $item = [
+                    'value' => $request->value,
+                    'status' => false,
+                    'mechanic' => "none",
+                ];
+
+                array_push($array, $item);
+
+                $order->update([
+                    'to_be_done' => json_encode($array)
+                ]);
+
+            } else {
+
+                $array = [];
+
+                $item = [
+                    'value' => $request->value,
+                    'status' => false,
+                    'mechanic' => "none",
+                ];
+
+                array_push($array, $item);
+
+                $order->update([
+                    'to_be_done' => json_encode($array)
+                ]);
+
+            }
+
+            return redirect('/work/orders/edit/'.$order->id)->with('success', 'Successfully added task!');
+
+        }
+
+    }
+
+    public function remove_task(Request $request, $id)
+    {
+
+        $user = Auth::user();
+
+        if($user->hasAnyPermission(['orders.edit', 'everything'])) {
+
+            $order = Order::find($id);
+            $row = $request->remove_task_row;
+
+            $array = json_decode($order->to_be_done);
+
+            unset($array[$row]);
+
+            $order->update([
+                'to_be_done' => json_encode($array)
+            ]);
+
+            return redirect()->back()->with('success', 'You have successfully removed a task.');
+
+        } else {
+            return redirect()->back()->with('error', 'You do not have permission to access this function.');
+        }
+        
+    }
+
     public function update(Request $request, $id)
     {
 
@@ -1119,7 +1200,11 @@ class OrdersController extends Controller
 
                 foreach($arrayTbd as $key => $item) {
 
-                    $arrayTbd[$key]['status'] = $request->to_be_done_status[$key] == 'true' ? true : false;
+                    if($request->to_be_done_status_condition[$key] == "false") {
+                        $arrayTbd[$key]['status'] = false;
+                    } else if($request->to_be_done_status_condition[$key] == "true") {
+                        $arrayTbd[$key]['status'] = true;
+                    }
 
                 }
 
@@ -1208,7 +1293,7 @@ class OrdersController extends Controller
 
                 foreach($validTasks as $task) {
                     if($task->status == false) {
-                        return redirect()->back()->with('error', 'Please confirm that all tasks have been completed. Set their status to YES and click save order.');
+                        return redirect()->back()->with('error', 'Please confirm that all tasks have been completed. Set their status to completed and click save order.');
                     }
                 }
 
@@ -1305,8 +1390,15 @@ class OrdersController extends Controller
 
         $data = $request->all();
 
-        if($data['vinCode']) {
-            $vehicles = Vehicle::where([['vin_code', 'LIKE','%' . $data['vinCode'] . '%'], ['type', '=', $data['type']]])->get();
+        if($data['searchInput']) {
+            $vehicles = Vehicle::where([['vin_code', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['model', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['make', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['gas_type', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['engine', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['color', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->orWhere([['number_plate', 'LIKE','%' . $data['searchInput'] . '%'], ['type', '=', $data['type']]])
+                                ->get();
             return json_encode($vehicles);
         }
 

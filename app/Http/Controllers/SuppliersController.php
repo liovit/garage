@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SuppliersController extends Controller
 {
+
+    // public $filesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/garage/media/suppliers/';
+    // public $removeFilesPath = '/home/u958765773/domains/labairimtaimone.lt/public_html/';
+
+    public $filesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public/media/suppliers/';
+    public $removeFilesPath = '/Users/maeqh/Desktop/noname/Projects/garageservicesproject/public';
+
     /**
      * Display a listing of the resource.
      *
@@ -63,67 +70,120 @@ class SuppliersController extends Controller
 
         if($user->hasAnyPermission(['suppliers.management.create', 'everything'])) {
 
-            $createSupplier = Supplier::create([
-                'supplier_name' => $request->supplier_name,
-                'supplier_company' => $request->supplier_company,
-                'supplier_city' => $request->supplier_city,
-                'supplier_state' => $request->supplier_state,
-                'supplier_address' => $request->supplier_address,
-                'supplier_post' => $request->supplier_post,
-                'supplier_email' => $request->supplier_email,
-                'supplier_telephone' => $request->supplier_telephone,
-                'supplier_fax' => $request->supplier_fax,
-                'supplier_toll' => $request->supplier_toll,
-                'supplier_alt_phone' => $request->supplier_alt_phone,
-                'billing_city' => $request->billing_city,
-                'billing_state' => $request->billing_state,
-                'billing_address' => $request->billing_address,
-                'billing_post' => $request->billing_post,
-                'billing_email' => $request->billing_email,
-                'billing_telephone' => $request->billing_telephone,
-                'billing_fax' => $request->billing_fax,
-                'billing_toll' => $request->billing_toll,
-                'billing_alt_phone' => $request->billing_alt_phone,
-                'comments' => $request->comments,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
+            if($validated = $request->validate([
+                'supplier_company' => 'required',
+                'supplier_name' => 'required',
+                'supplier_email' => 'required',
+                'supplier_telephone' => 'required',
+                'billing_company' => 'required',
+                'billing_name' => 'required',
+                'billing_city' => 'required',
+                'billing_address' => 'required',
+                'billing_post' => 'required',
+                'billing_state' => 'required',
+                'billing_email' => 'required_without:billing_telephone',
+            ])) {
 
-            $alt_names = []; $alt_emails = []; $alt_phones = []; $alt_faxes = [];
+                $createSupplier = Supplier::create([
+                    'supplier_name' => $request->supplier_name,
+                    'supplier_company' => $request->supplier_company,
+                    'supplier_city' => $request->supplier_city,
+                    'supplier_state' => $request->supplier_state,
+                    'supplier_address' => $request->supplier_address,
+                    'supplier_post' => $request->supplier_post,
+                    'supplier_email' => $request->supplier_email,
+                    'supplier_telephone' => $request->supplier_telephone,
+                    'supplier_fax' => $request->supplier_fax,
+                    'supplier_toll' => $request->supplier_toll,
+                    'supplier_alt_phone' => $request->supplier_alt_phone,
+                    'billing_company' => $request->billing_company,
+                    'billing_name' => $request->billing_name,
+                    'billing_city' => $request->billing_city,
+                    'billing_state' => $request->billing_state,
+                    'billing_address' => $request->billing_address,
+                    'billing_post' => $request->billing_post,
+                    'billing_email' => $request->billing_email,
+                    'billing_telephone' => $request->billing_telephone,
+                    'billing_fax' => $request->billing_fax,
+                    'billing_toll' => $request->billing_toll,
+                    'billing_alt_phone' => $request->billing_alt_phone,
+                    'comments' => $request->comments,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
 
-            if($request->alt_contacts_names) {
-                foreach($request->alt_contacts_names as $name) {
-                    array_push($alt_names, $name);
+                if($request->file('avatar')) {
+
+                    $pTitle = time() . '-' . $request->file('avatar')->getClientOriginalName();
+    
+                    if(!file_exists($this->filesPath . $createSupplier->id)) {
+                        mkdir($this->filesPath . $createSupplier->id, 0777);
+                    }
+    
+                    $request->file('avatar')->move($this->filesPath . $createSupplier->id , $pTitle);
+    
+                    $createSupplier->update([
+                        'avatar' => '/media/profiles/' . $createSupplier->id . '/' . $pTitle,
+                    ]);
+    
                 }
-            }
-
-            if($request->alt_contacts_emails) {
-                foreach($request->alt_contacts_emails as $email) {
-                    array_push($alt_emails, $email);
+    
+                $alt_names = []; $alt_emails = []; $alt_phones = []; $alt_faxes = [];
+    
+                if($request->alt_contacts_names) {
+                    foreach($request->alt_contacts_names as $name) {
+                        if($name) {
+                            array_push($alt_names, $name);
+                        } else {
+                            array_push($alt_names, null);
+                        }
+                    }
                 }
-            }
-
-            if($request->alt_contacts_phones) {
-                foreach($request->alt_contacts_phones as $phone) {
-                    array_push($alt_phones, $phone);
+    
+                if($request->alt_contacts_emails) {
+                    foreach($request->alt_contacts_emails as $email) {
+                        if($email) {
+                            array_push($alt_emails, $email);
+                        } else {
+                            array_push($alt_emails, null);
+                        }
+                    }
                 }
-            }
-
-            if($request->alt_contacts_faxes) {
-                foreach($request->alt_contacts_faxes as $fax) {
-                    array_push($alt_faxes, $fax);
+    
+                if($request->alt_contacts_phones) {
+                    foreach($request->alt_contacts_phones as $phone) {
+                        if($phone)
+                        {
+                            array_push($alt_phones, $phone);
+                        } else {
+                            array_push($alt_phones, null);
+                        }
+                    }
                 }
-            }
-
-            $createSupplier->update([
-                'alt_contacts_names' => $alt_names,
-                'alt_contacts_emails' => $alt_emails,
-                'alt_contacts_phones' => $alt_phones,
-                'alt_contacts_faxes' => $alt_faxes
-            ]);
-
-            if($createSupplier) {
-                return redirect('/management/suppliers')->with('success', 'Successfully created new supplier!');
+    
+                if($request->alt_contacts_faxes) {
+                    foreach($request->alt_contacts_faxes as $fax) {
+                        if($fax) {
+                            array_push($alt_faxes, $fax);
+                        } else {
+                            array_push($alt_faxes, null);
+                        }
+                    }
+                }
+    
+                $createSupplier->update([
+                    'alt_contacts_names' => $alt_names,
+                    'alt_contacts_emails' => $alt_emails,
+                    'alt_contacts_phones' => $alt_phones,
+                    'alt_contacts_faxes' => $alt_faxes
+                ]);
+    
+                if($createSupplier) {
+                    return redirect('/management/suppliers')->with('success', 'Successfully created new supplier!');
+                }
+                
+            } else {
+                return redirect()->back()->withInput();
             }
 
         } else {
@@ -184,74 +244,134 @@ class SuppliersController extends Controller
 
         $supplier = Supplier::find($id);
 
-        $supplier->update([
-            'supplier_name' => $request->supplier_name,
-            'supplier_company' => $request->supplier_company,
-            'supplier_city' => $request->supplier_city,
-            'supplier_state' => $request->supplier_state,
-            'supplier_address' => $request->supplier_address,
-            'supplier_post' => $request->supplier_post,
-            'supplier_email' => $request->supplier_email,
-            'supplier_telephone' => $request->supplier_telephone,
-            'supplier_fax' => $request->supplier_fax,
-            'supplier_toll' => $request->supplier_toll,
-            'supplier_alt_phone' => $request->supplier_alt_phone,
-            'billing_company' => $request->billing_company,
-            'billing_name' => $request->billing_name,
-            'billing_city' => $request->billing_city,
-            'billing_state' => $request->billing_state,
-            'billing_address' => $request->billing_address,
-            'billing_post' => $request->billing_post,
-            'billing_email' => $request->billing_email,
-            'billing_telephone' => $request->billing_telephone,
-            'billing_fax' => $request->billing_fax,
-            'billing_toll' => $request->billing_toll,
-            'billing_alt_phone' => $request->billing_alt_phone,
-            'comments' => $request->comments,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        if($validated = $request->validate([
+            'supplier_company' => 'required',
+            'supplier_name' => 'required',
+            'supplier_email' => 'required',
+            'supplier_telephone' => 'required',
+            'billing_company' => 'required',
+            'billing_name' => 'required',
+            'billing_city' => 'required',
+            'billing_address' => 'required',
+            'billing_post' => 'required',
+            'billing_state' => 'required',
+            'billing_email' => 'required_without:billing_telephone',
+        ])) {
 
-        $alt_names = json_decode($supplier->alt_contacts_names);
-        $alt_emails = json_decode($supplier->alt_contacts_emails);
-        $alt_phones = json_decode($supplier->alt_contacts_phones);
-        $alt_faxes = json_decode($supplier->alt_contacts_faxes);
+            $supplier->update([
+                'supplier_name' => $request->supplier_name,
+                'supplier_company' => $request->supplier_company,
+                'supplier_city' => $request->supplier_city,
+                'supplier_state' => $request->supplier_state,
+                'supplier_address' => $request->supplier_address,
+                'supplier_post' => $request->supplier_post,
+                'supplier_email' => $request->supplier_email,
+                'supplier_telephone' => $request->supplier_telephone,
+                'supplier_fax' => $request->supplier_fax,
+                'supplier_toll' => $request->supplier_toll,
+                'supplier_alt_phone' => $request->supplier_alt_phone,
+                'billing_company' => $request->billing_company,
+                'billing_name' => $request->billing_name,
+                'billing_city' => $request->billing_city,
+                'billing_state' => $request->billing_state,
+                'billing_address' => $request->billing_address,
+                'billing_post' => $request->billing_post,
+                'billing_email' => $request->billing_email,
+                'billing_telephone' => $request->billing_telephone,
+                'billing_fax' => $request->billing_fax,
+                'billing_toll' => $request->billing_toll,
+                'billing_alt_phone' => $request->billing_alt_phone,
+                'comments' => $request->comments,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
 
-        if($request->alt_contacts_names) {
-            foreach($request->alt_contacts_names as $name) {
-                array_push($alt_names, $name);
+            if($request->file('avatar')) {
+
+                // remove current picture
+                if($supplier->avatar) {
+                    unlink($this->removeFilesPath . $supplier->avatar);
+                }
+    
+                // reform slightly original title
+                $pTitle = time() . '-' . $request->file('avatar')->getClientOriginalName();
+    
+                // check if such profile folder exists, if not create new
+                if(!file_exists($this->filesPath . $supplier->id)) {
+                    mkdir($this->filesPath . $supplier->id, 0777);
+                }
+    
+                // place the picture in to the user folder
+                $request->file('avatar')->move($this->filesPath . $supplier->id , $pTitle);
+    
+                // update database
+                $supplier->update([
+                    'avatar' => '/media/suppliers/' . $supplier->id . '/' . $pTitle,
+                ]);
+    
             }
-        }
-
-        if($request->alt_contacts_emails) {
-            foreach($request->alt_contacts_emails as $email) {
-                array_push($alt_emails, $email);
+    
+            $alt_names = json_decode($supplier->alt_contacts_names);
+            $alt_emails = json_decode($supplier->alt_contacts_emails);
+            $alt_phones = json_decode($supplier->alt_contacts_phones);
+            $alt_faxes = json_decode($supplier->alt_contacts_faxes);
+    
+            if($request->alt_contacts_names) {
+                foreach($request->alt_contacts_names as $name) {
+                    if($name) {
+                        array_push($alt_names, $name);
+                    } else {
+                        array_push($alt_names, null);
+                    }
+                }
             }
-        }
-
-        if($request->alt_contacts_phones) {
-            foreach($request->alt_contacts_phones as $phone) {
-                array_push($alt_phones, $phone);
+    
+            if($request->alt_contacts_emails) {
+                foreach($request->alt_contacts_emails as $email) {
+                    if($email) {
+                        array_push($alt_emails, $email);
+                    } else {
+                        array_push($alt_emails, null);
+                    }
+                }
             }
-        }
-
-        if($request->alt_contacts_faxes) {
-            foreach($request->alt_contacts_faxes as $fax) {
-                array_push($alt_faxes, $fax);
+    
+            if($request->alt_contacts_phones) {
+                foreach($request->alt_contacts_phones as $phone) {
+                    if($phone)
+                    {
+                        array_push($alt_phones, $phone);
+                    } else {
+                        array_push($alt_phones, null);
+                    }
+                }
             }
+    
+            if($request->alt_contacts_faxes) {
+                foreach($request->alt_contacts_faxes as $fax) {
+                    if($fax) {
+                        array_push($alt_faxes, $fax);
+                    } else {
+                        array_push($alt_faxes, null);
+                    }
+                }
+            }
+    
+            $newNames = json_encode($alt_names);
+            $newEmails = json_encode($alt_emails);
+            $newFaxes = json_encode($alt_faxes);
+            $newPhones = json_encode($alt_phones);
+    
+            $supplier->update([
+                'alt_contacts_names' => $newNames,
+                'alt_contacts_emails' => $newEmails,
+                'alt_contacts_phones' => $newPhones,
+                'alt_contacts_faxes' => $newFaxes
+            ]);
+
+        } else {
+            return redirect()->back()->withInput();
         }
-
-        $newNames = json_encode($alt_names);
-        $newEmails = json_encode($alt_emails);
-        $newFaxes = json_encode($alt_faxes);
-        $newPhones = json_encode($alt_phones);
-
-        $supplier->update([
-            'alt_contacts_names' => $newNames,
-            'alt_contacts_emails' => $newEmails,
-            'alt_contacts_phones' => $newPhones,
-            'alt_contacts_faxes' => $newFaxes
-        ]);
 
         return redirect('/management/suppliers')->with('success', 'Successfully updated supplier!');
 
@@ -356,8 +476,15 @@ class SuppliersController extends Controller
         $user = Auth::user();
 
         if($user->hasAnyPermission(['suppliers.management.delete', 'everything'])) {
+
             $supplier = Supplier::find($id);
+
+            if($supplier->avatar) {
+                unlink($this->removeFilesPath . $supplier->avatar);
+            }
+
             $supplier->delete();
+
             return redirect('/management/suppliers')->with('success', 'Successfully deleted supplier!');
         } else {
             return redirect()->back()->with('error', 'You do not have permission to access this function.');

@@ -34,7 +34,7 @@
                     <div class="card card-xl-stretch mb-xl-8 mb-8">
                         <!--begin::Header-->
                         <div class="card-header border-0">
-                            <h3 class="card-title fw-bolder text-dark">Todo</h3>
+                            <h3 class="card-title fw-bolder text-dark">{{ __('Tasks') }}</h3>
                             <div class="card-toolbar">
                                 <!--begin::Menu-->
                                 <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
